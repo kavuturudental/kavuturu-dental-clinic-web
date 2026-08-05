@@ -10,6 +10,7 @@ import {
   ArticleCTA,
 } from "../../components/website/blogs";
 import * as staticArticles from "../../data/blogs/articles";
+import staticBlogData from "../../data/blogs/blogsData";
 import Footer from "../../components/website/footer/Footer";
 import { getBlogBySlugOrId } from "../../services/website/blogService";
 
@@ -26,14 +27,32 @@ const BlogDetails = () => {
         if (response.success && response.data) {
           setArticle(response.data);
         } else {
-          // Fallback to static article data if available
-          const staticMatch = Object.values(staticArticles).find((art) => art.slug === slug);
-          setArticle(staticMatch || null);
+          // Fallback to static article data or static blog data array
+          const cleanSlug = String(slug || "").toLowerCase().trim();
+          
+          const staticArticleMatch = Object.values(staticArticles).find(
+            (art) => art.slug?.toLowerCase() === cleanSlug || String(art.id) === cleanSlug
+          );
+
+          const staticDataMatch = staticBlogData.find(
+            (art) => art.slug?.toLowerCase() === cleanSlug || String(art.id) === cleanSlug
+          );
+
+          setArticle(staticArticleMatch || staticDataMatch || null);
         }
       } catch (err) {
         console.error("Failed to fetch article detail:", err);
-        const staticMatch = Object.values(staticArticles).find((art) => art.slug === slug);
-        setArticle(staticMatch || null);
+        const cleanSlug = String(slug || "").toLowerCase().trim();
+        
+        const staticArticleMatch = Object.values(staticArticles).find(
+          (art) => art.slug?.toLowerCase() === cleanSlug || String(art.id) === cleanSlug
+        );
+
+        const staticDataMatch = staticBlogData.find(
+          (art) => art.slug?.toLowerCase() === cleanSlug || String(art.id) === cleanSlug
+        );
+
+        setArticle(staticArticleMatch || staticDataMatch || null);
       } finally {
         setLoading(false);
       }
@@ -65,13 +84,13 @@ const BlogDetails = () => {
             Article Not Found
           </h1>
 
-          <p className="mt-4 text-slate-650 max-w-md mx-auto">
-            The dental article you are looking for does not exist or has been relocated to another address.
+          <p className="mt-4 text-slate-600 max-w-md mx-auto">
+            The dental article you are looking for does not exist or has been relocated.
           </p>
 
           <Link
             to="/blogs"
-            className="mt-8 inline-flex items-center gap-2 rounded-xl bg-sky-600 px-6 py-3.5 font-semibold text-white hover:bg-sky-700 transition-colors shadow-md"
+            className="mt-8 inline-flex items-center gap-2 rounded-xl bg-[#0E2A6D] px-6 py-3.5 font-semibold text-white hover:bg-[#0A1F52] transition-colors shadow-md"
           >
             <ArrowLeft size={20} />
             Back to Blogs
