@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand Colors */
+  --color-primary: #0e2a6d;
+  --color-primary-light: #1e40af;
+  --color-primary-dark: #0a1f52;
+
+  --color-secondary: #16a34a;
+  --color-secondary-light: #22c55e;
+  --color-secondary-dark: #15803d;
+
+  --color-accent: #3b82f6;
+
+  /* Backgrounds */
+  --color-background: #ffffff;
+  --color-surface: #f8fafc;
+
+  /* Text */
+  --color-text-primary: #111827;
+  --color-text-secondary: #6b7280;
+
+  /* Border */
+  --color-border: #e5e7eb;
+
+  /* States */
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+
+  /* Typography */
+  --font-sans: "Outfit", sans-serif;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+
+  /* Shadows */
+  --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --shadow-dropdown: 0 12px 30px rgba(0, 0, 0, 0.12);
+
+  /* Container */
+  --container-7xl: 1280px;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  overflow-x: hidden;
+  width: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
