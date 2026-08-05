@@ -6,7 +6,6 @@ import authService from "../../../services/authService";
 import { useAuth } from "../../../context/AuthContext";
 import {
   Menu,
-  Bell,
   Search,
   ChevronDown,
   User as UserIcon,
@@ -15,18 +14,14 @@ import {
   Clock
 } from "lucide-react";
 import doctorImage from "../../../assets/images/doctors/dr-ravindra-babu.webp";
-import NotificationDropdown from "../../receptionist/layout/NotificationDropdown";
-import useNotifications from "../../../hooks/useNotifications";
 
 export default function Topbar({ onToggleSidebar, onLogoutClick, onSearchChange, searchValue }) {
   const { user } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [notifDropdownOpen, setNotifDropdownOpen] = useState(false);
-  const { notifications, unreadCount, markAsRead, markAllAsRead } = useNotifications();
 
-  // ONLY Profile Name is Capitalized in Green #16A34A
+  // Profile Name Display
   const rawName = user?.name || "Dr. K. Ravindra Babu";
   const upperDisplayName = String(rawName).toUpperCase();
   const designation = user?.qualification || "Chief Dental Surgeon & Specialist";
@@ -61,20 +56,11 @@ export default function Topbar({ onToggleSidebar, onLogoutClick, onSearchChange,
     if (p.includes("/website-management/gallery")) return { title: "Gallery CMS", subtitle: "Manage website photo gallery." };
     if (p.includes("/website-management/testimonials")) return { title: "Reviews CMS", subtitle: "Manage patient testimonials." };
     if (p.includes("/website-management/blogs")) return { title: "Blogs CMS", subtitle: "Manage dental articles and news." };
-    if (p.includes("/website-management/clinic-info")) return { title: "Contact Information", subtitle: "Manage public contact details and hours." };
-    
-    if (p.includes("/appointment-management/dashboard")) return { title: "Dashboard Overview", subtitle: "Real-time summary of appointments & metrics." };
-    if (p.includes("/appointment-management/appointments")) return { title: "Appointments", subtitle: "Manage patient schedules and visits." };
-    if (p.includes("/appointment-management/requests")) return { title: "Appointment Requests", subtitle: "Review incoming online booking requests." };
-    if (p.includes("/appointment-management/patients")) return { title: "Patient Directory", subtitle: "Directory of registered clinic patients." };
-    if (p.includes("/appointment-management/calendar")) return { title: "Calendar Schedule", subtitle: "Visual calendar view of bookings." };
-    if (p.includes("/appointment-management/data-export")) return { title: "Data Export", subtitle: "Export appointment & patient reports." };
-    if (p.includes("/appointment-management/insights")) return { title: "Insights & Reports", subtitle: "Clinical analytics and revenue reports." };
-    if (p.includes("/appointment-management/notifications")) return { title: "Notifications", subtitle: "System alerts and booking updates." };
+    if (p.includes("/website-management/contact")) return { title: "Contact Information", subtitle: "Manage public contact details and hours." };
 
     if (p.includes("/doctor/profile")) return { title: "Doctor Profile", subtitle: "Manage your professional details & account." };
 
-    return { title: "Doctor Portal", subtitle: "Kavuturu Dental Clinic Management" };
+    return { title: "Doctor CMS Portal", subtitle: "Kavuturu Dental Clinic CMS Management" };
   };
 
   const headerInfo = getHeaderInfo();
@@ -112,7 +98,7 @@ export default function Topbar({ onToggleSidebar, onLogoutClick, onSearchChange,
         </div>
       </div>
 
-      {/* 2. Center Column: Dynamic Flex Search Bar (Zero Overlap) */}
+      {/* 2. Center Column: Search Bar */}
       <div className="hidden md:flex flex-1 min-w-0 justify-center px-2">
         <div className="relative w-full max-w-[220px] lg:max-w-[300px] xl:max-w-[380px]">
           <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
@@ -120,13 +106,13 @@ export default function Topbar({ onToggleSidebar, onLogoutClick, onSearchChange,
             type="text"
             value={searchValue || ""}
             onChange={(e) => onSearchChange && onSearchChange(e.target.value)}
-            placeholder="Search portal..."
+            placeholder="Search CMS..."
             className="h-9.5 w-full rounded-full border border-[#E5E7EB] bg-[#F8FAFC] pl-10 pr-4 text-xs font-medium text-slate-800 placeholder-slate-400 outline-none focus:border-[#2563EB] focus:bg-white focus:ring-4 focus:ring-[#EFF6FF] transition-all shadow-2xs"
           />
         </div>
       </div>
 
-      {/* 3. Right Column: Date/Time Card ↔ Notification ↔ Doctor Profile */}
+      {/* 3. Right Column: Date/Time Card & Doctor Profile */}
       <div className="flex items-center justify-end gap-3 flex-shrink-0">
         
         {/* Compact Date & Time Card */}
@@ -142,32 +128,7 @@ export default function Topbar({ onToggleSidebar, onLogoutClick, onSearchChange,
           </span>
         </div>
 
-        {/* Circular Notification Bell */}
-        <div className="relative flex-shrink-0">
-          <button
-            type="button"
-            onClick={() => setNotifDropdownOpen((prev) => !prev)}
-            className="w-9 h-9 rounded-full flex items-center justify-center text-slate-500 hover:bg-[#F8FAFC] hover:text-[#2563EB] transition-all border border-[#E5E7EB] cursor-pointer relative outline-none active:scale-95 shadow-2xs"
-            aria-label="Notifications"
-          >
-            <Bell className="w-4 h-4 text-slate-600" />
-            {unreadCount > 0 && (
-              <span className="absolute -top-1 -right-1 px-1.5 py-0.5 rounded-full bg-[#DC2626] text-white text-[10px] font-extrabold shadow-xs min-w-[18px] text-center leading-none">
-                {unreadCount}
-              </span>
-            )}
-          </button>
-
-          <NotificationDropdown
-            isOpen={notifDropdownOpen}
-            onClose={() => setNotifDropdownOpen(false)}
-            notifications={notifications}
-            onMarkAllAsRead={markAllAsRead}
-            onItemClick={(id) => markAsRead(id)}
-          />
-        </div>
-
-        {/* Profile Trigger (ONLY Profile Name is Capitalized in Green #16A34A) */}
+        {/* Profile Trigger */}
         <div className="relative flex-shrink-0">
           <button
             type="button"

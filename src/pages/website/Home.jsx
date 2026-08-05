@@ -8,7 +8,7 @@ import BeforeAfterSection from "../../components/website/home/before-after/Befor
 import TestimonialsSection from "../../components/website/testimonials/TestimonialsSection";
 import GallerySection from "../../components/website/home/gallery/GallerySection";
 import BlogSection from "../../components/website/home/blogs/BlogSection";
-import { AppointmentCTA } from "../../components/website/bookAppointment";
+import InnerPageCTA from "../../components/common/InnerPageCTA";
 import ContactSection from "../../components/website/home/contact/ContactSection";
 import Footer from "../../components/website/footer/Footer";
 import PublicPageBackground from "../../components/website/common/PublicPageBackground";
@@ -41,7 +41,7 @@ function Home() {
         <TestimonialsSection />
         <GallerySection />
         <BlogSection />
-        <AppointmentCTA />
+        <InnerPageCTA />
         <ContactSection />
       </div>
 

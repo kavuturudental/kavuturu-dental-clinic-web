@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Home, ChevronRight, Sparkles } from "lucide-react";
 import BeforeAfterList from "../../components/website/before-after/BeforeAfterList";
-import { AppointmentCTA } from "../../components/website/bookAppointment";
+import InnerPageCTA from "../../components/common/InnerPageCTA";
 import Footer from "../../components/website/footer/Footer";
 import PublicPageBackground from "../../components/website/common/PublicPageBackground";
 
@@ -56,7 +56,7 @@ const BeforeAfter = () => {
         <BeforeAfterList />
 
         {/* CTA */}
-        <AppointmentCTA />
+        <InnerPageCTA />
       </div>
 
       {/* Footer */}

@@ -146,12 +146,8 @@ const Footer = () => {
                 <Clock size={15} className="mt-0.5 flex-shrink-0 text-secondary" strokeWidth={2.2} />
                 <div className="text-[13px] text-slate-400 leading-relaxed space-y-0.5">
                   <div className="flex items-baseline gap-2">
-                    <span className="text-slate-500 font-medium">Mon – Fri:</span>
+                    <span className="text-slate-500 font-medium">Mon – Sat:</span>
                     <span className="font-semibold text-slate-300">{monFriHours}</span>
-                  </div>
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-slate-500 font-medium">Sat:</span>
-                    <span className="font-semibold text-slate-300">{satHours}</span>
                   </div>
                   <div className="flex items-baseline gap-2">
                     <span className="text-slate-500 font-medium">Sun:</span>

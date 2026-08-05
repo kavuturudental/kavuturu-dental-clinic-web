@@ -53,7 +53,7 @@ export const contactData = {
       title: "Clinic Timings",
       days: "Monday - Saturday",
       hours: "09:30 AM - 09:00 PM",
-      sundayHours: "10:00 AM - 01:00 PM"
+      sundayHours: "10:00 AM - 01:30 PM"
     }
   },
 
@@ -95,7 +95,7 @@ export const operationalHours = [
   { day: "Thursday", hours: "09:30 AM - 09:00 PM" },
   { day: "Friday", hours: "09:30 AM - 09:00 PM" },
   { day: "Saturday", hours: "09:30 AM - 09:00 PM" },
-  { day: "Sunday", hours: "10:00 AM - 01:00 PM" }
+  { day: "Sunday", hours: "10:00 AM - 01:30 PM" }
 ];
 
 export const googleMapEmbedUrl = contactData.googleMapEmbedUrl;

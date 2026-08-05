@@ -85,13 +85,8 @@ export const ContactInfo = () => {
       >
         <div className="flex flex-col gap-1.5 w-full text-[13px]">
           <div className="flex justify-between text-slate-700">
-            <span>Mon – Fri</span>
+            <span>Mon – Sat</span>
             <span className="font-bold text-slate-800">{monFriHours}</span>
-          </div>
-          <div className="border-t border-slate-100" />
-          <div className="flex justify-between text-slate-700">
-            <span>Saturday</span>
-            <span className="font-bold text-slate-800">{satHours}</span>
           </div>
           <div className="border-t border-slate-100" />
           <div className="flex justify-between text-slate-700">

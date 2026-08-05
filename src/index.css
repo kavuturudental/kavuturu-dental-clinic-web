@@ -87,3 +87,68 @@ ol {
   padding: 0;
   margin: 0;
 }
+
+/* Custom Floating Bar Animations */
+
+/* 1. Phone Ring / Tilt */
+@keyframes icon-phone-ring {
+  0% { transform: rotate(0deg) scale(1); }
+  15% { transform: rotate(14deg) scale(1.15); }
+  30% { transform: rotate(-14deg) scale(1.15); }
+  45% { transform: rotate(10deg) scale(1.15); }
+  60% { transform: rotate(-10deg) scale(1.15); }
+  75% { transform: rotate(5deg) scale(1.1); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+
+/* 2. Gentle Breathing (Call Button) */
+@keyframes social-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* 3. Soft Floating (Facebook & Instagram) */
+@keyframes social-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* 4. Heartbeat (YouTube) */
+@keyframes social-heartbeat {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(1.06); }
+  35% { transform: scale(0.98); }
+  45% { transform: scale(1.04); }
+}
+
+/* 5. Expanding Ripple Wave (WhatsApp) */
+@keyframes social-ripple-wave {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.75;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+.animate-social-breathe {
+  animation: social-breathe 3s ease-in-out infinite;
+}
+
+.animate-social-float {
+  animation: social-float 3.5s ease-in-out infinite;
+}
+
+.animate-social-heartbeat {
+  animation: social-heartbeat 2.5s ease-in-out infinite;
+}
+
+.animate-social-ripple {
+  animation: social-ripple-wave 2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+.group:hover .animate-phone-ring-hover {
+  animation: icon-phone-ring 0.6s ease-in-out infinite;
+}

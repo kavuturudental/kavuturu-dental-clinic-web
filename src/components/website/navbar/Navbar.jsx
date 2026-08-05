@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Calendar, Menu } from "lucide-react";
+import { Phone, Menu } from "lucide-react";
 
 import Logo from "./Logo";
 import NavLinks from "./NavLinks";
 import MobileMenu from "./MobileMenu";
-import { useAppointment } from "../bookAppointment";
 
 function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
-  const { openModal } = useAppointment();
   const location = useLocation();
 
   useEffect(() => {
@@ -101,8 +99,8 @@ function Navbar() {
           transition-all
           duration-500
           ${
-            isScrolled
-              ? "bg-white/90 backdrop-blur-xl border-b border-gray-200 shadow-lg"
+            isScrolled || location.pathname !== "/"
+              ? "bg-white/95 backdrop-blur-xl border-b border-gray-200/80 shadow-sm"
               : "bg-transparent"
           }
         `}
@@ -136,8 +134,9 @@ function Navbar() {
           {/* CTA */}
 
           <div className="flex justify-end">
-            <button
-              onClick={() => openModal()}
+            <a
+              href="tel:+918309479901"
+              aria-label="Call Now"
               className="
                 group
                 inline-flex
@@ -164,10 +163,10 @@ function Navbar() {
                 cursor-pointer
               "
             >
-              <span>Book Appointment</span>
+              <span>Call Now</span>
 
-              <Calendar className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
-            </button>
+              <Phone className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
+            </a>
           </div>
         </div>
 
@@ -186,12 +185,11 @@ function Navbar() {
           <Logo />
 
           <div className="flex items-center gap-3">
-            {/* Appointment */}
+            {/* Call Now */}
 
-            <button
-              type="button"
-              aria-label="Book Appointment"
-              onClick={() => openModal()}
+            <a
+              href="tel:+918309479901"
+              aria-label="Call Now"
               className="
                 flex
                 h-11
@@ -210,8 +208,8 @@ function Navbar() {
                 cursor-pointer
               "
             >
-              <Calendar size={22} />
-            </button>
+              <Phone size={20} />
+            </a>
 
             {/* Menu */}
 

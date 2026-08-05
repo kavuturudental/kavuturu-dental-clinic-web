@@ -47,8 +47,8 @@ export const featuredDoctor = {
 
   cta: {
     primary: {
-      label: "Book Appointment",
-      href: "/appointment",
+      label: "Call Now",
+      href: "tel:+918309479901",
     },
 
     secondary: {

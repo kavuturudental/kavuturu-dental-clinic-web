@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "../components/doctor/layout/Sidebar";
 import Topbar from "../components/doctor/layout/Topbar";
-import LogoutModal from "../components/receptionist/common/LogoutModal";
+import LogoutModal from "../components/common/LogoutModal";
 
 export default function DoctorLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);

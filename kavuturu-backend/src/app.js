@@ -9,12 +9,6 @@ const morgan = require("morgan");
 // Routes
 const healthRoutes = require("./routes/healthRoutes");
 const authRoutes = require("./routes/authRoutes");
-const patientRoutes = require("./routes/patientRoutes");
-const appointmentRoutes = require("./routes/appointmentRoutes");
-const dashboardRoutes = require("./routes/dashboardRoutes");
-const doctorDashboardRoutes = require("./routes/doctorDashboardRoutes");
-const appointmentRequestRoutes = require("./routes/appointmentRequestRoutes");
-const notificationRoutes = require("./routes/notificationRoutes");
 
 // Website CMS Routes
 const heroRoutes = require("./routes/heroRoutes");
@@ -25,6 +19,7 @@ const beforeAfterRoutes = require("./routes/beforeAfterRoutes");
 const testimonialRoutes = require("./routes/testimonialRoutes");
 const galleryRoutes = require("./routes/galleryRoutes");
 const blogRoutes = require("./routes/blogRoutes");
+const contactRoutes = require("./routes/contactRoutes");
 
 const app = express();
 
@@ -64,7 +59,7 @@ if (process.env.NODE_ENV === "development") {
 app.get("/", (req, res) => {
     return res.status(200).json({
         success: true,
-        message: "Kavuturu Dental Clinic API",
+        message: "Kavuturu Dental Clinic API - CMS",
     });
 });
 
@@ -77,28 +72,6 @@ app.use("/api/health", healthRoutes);
 
 // Authentication
 app.use("/api/auth", authRoutes);
-
-// Patients
-app.use("/api/patients", patientRoutes);
-
-// Appointments
-app.use("/api/appointments", appointmentRoutes);
-
-// Receptionist Dashboard
-app.use("/api/dashboard", dashboardRoutes);
-
-// Doctor Dashboard
-app.use("/api/doctor", doctorDashboardRoutes);
-
-// Receptionist Management
-const receptionistRoutes = require("./routes/receptionistRoutes");
-app.use("/api/doctor/receptionists", receptionistRoutes);
-
-// Appointment Requests
-app.use("/api/appointment-requests", appointmentRequestRoutes);
-
-// Notifications
-app.use("/api/notifications", notificationRoutes);
 
 /* ==========================================================
    Website CMS Routes
@@ -129,7 +102,6 @@ app.use("/api/website/gallery", galleryRoutes);
 app.use("/api/website/blogs", blogRoutes);
 
 // Contact Information
-const contactRoutes = require("./routes/contactRoutes");
 app.use("/api/website/contact", contactRoutes);
 
 /* ==========================================================

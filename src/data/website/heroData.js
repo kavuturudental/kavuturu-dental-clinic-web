@@ -13,8 +13,8 @@ export const heroData = {
 
   buttons: {
     primary: {
-      label: "Book Appointment",
-      href: "/book-appointment",
+      label: "Call Now",
+      href: "tel:+918309479901",
     },
 
     secondary: {
@@ -25,6 +25,6 @@ export const heroData = {
 
   trustPoints: [
     "25,000+ Happy Patients",
-    "Same-Day Appointments",
+    "Direct Doctor Consultation",
   ],
 };

@@ -1,12 +1,9 @@
 import { Link } from "react-router-dom";
-import { Calendar, ArrowRight } from "lucide-react";
+import { Phone, ArrowRight } from "lucide-react";
 
 import { heroData } from "../../../data/website/heroData";
-import { useAppointment } from "../bookAppointment";
 
 function HeroButtons({ className = "mt-8" }) {
-  const { openModal } = useAppointment();
-
   return (
     <div
       className={`
@@ -19,9 +16,9 @@ function HeroButtons({ className = "mt-8" }) {
         w-full
       `}
     >
-      {/* Primary Button */}
-      <button
-        onClick={() => openModal()}
+      {/* Primary Button - Call Now */}
+      <a
+        href="tel:+918309479901"
         className="
           group
           inline-flex
@@ -54,8 +51,8 @@ function HeroButtons({ className = "mt-8" }) {
         "
       >
         <span className="whitespace-nowrap">{heroData.buttons.primary.label}</span>
-        <Calendar className="h-4.5 w-4.5 sm:h-5 sm:w-5 shrink-0 transition-transform duration-300 group-hover:scale-110" />
-      </button>
+        <Phone className="h-4.5 w-4.5 sm:h-5 sm:w-5 shrink-0 transition-transform duration-300 group-hover:scale-110" />
+      </a>
 
       {/* Secondary Button */}
       <Link

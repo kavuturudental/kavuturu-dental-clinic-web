@@ -94,7 +94,7 @@ const GalleryLightboxModal = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md transition-opacity duration-300 animate-fadeIn"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-md transition-opacity duration-300 animate-fadeIn"
       onClick={onClose}
     >
       {/* Top Header Bar */}

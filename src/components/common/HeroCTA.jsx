@@ -1,18 +1,13 @@
-// src/components/common/HeroCTA.jsx
-
 import React, { useState, useEffect } from "react";
-import { Calendar, Phone } from "lucide-react";
-import { useAppointment } from "../website/bookAppointment";
+import { Phone } from "lucide-react";
 import { contactData } from "../../data/website/contactData";
 import { getContact } from "../../services/website/contactService";
 
 const HeroCTA = ({
-  primaryText = "Book Appointment",
-  secondaryText = "Call Now",
+  primaryText = "Call Now",
+  secondaryText = "Emergency Support",
   className = "mt-8",
 }) => {
-  const { openModal } = useAppointment();
-
   const [phoneUrl, setPhoneUrl] = useState(contactData.callUrl);
 
   useEffect(() => {
@@ -34,10 +29,9 @@ const HeroCTA = ({
     <div className={`flex flex-col items-start text-left ${className}`}>
       {/* Action Buttons Row */}
       <div className="flex flex-wrap items-center gap-3.5 sm:gap-4 w-full sm:w-auto">
-        {/* Primary CTA */}
-        <button
-          type="button"
-          onClick={() => openModal()}
+        {/* Primary CTA - Call Now */}
+        <a
+          href={phoneUrl}
           className="
             group
             inline-flex
@@ -67,9 +61,9 @@ const HeroCTA = ({
             sm:w-auto
           "
         >
+          <Phone size={18} className="shrink-0 transition-transform duration-300 group-hover:scale-110" />
           <span className="whitespace-nowrap">{primaryText}</span>
-          <Calendar size={18} className="shrink-0 transition-transform duration-300 group-hover:scale-110" />
-        </button>
+        </a>
 
         {/* Secondary CTA */}
         <a

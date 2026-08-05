@@ -59,7 +59,7 @@ export const contactDetails = {
   directionsUrl: contactData.directionsUrl,
   hours: {
     weekdays: "9:30 AM – 9:00 PM",
-    sunday: "10:00 AM – 1:00 PM",
+    sunday: "10:00 AM – 1:30 PM",
   },
 };
 

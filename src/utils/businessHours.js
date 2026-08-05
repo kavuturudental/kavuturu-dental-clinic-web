@@ -2,7 +2,8 @@
 
 /**
  * Central Configuration for Clinic Business Hours
- * Easily updated via config file or CMS API
+ * Mon - Sat: 9:30 AM - 9:00 PM
+ * Sun: 10:00 AM - 1:30 PM
  */
 export const businessHoursConfig = {
   // Monday - Saturday (Days 1 to 6)
@@ -15,11 +16,11 @@ export const businessHoursConfig = {
   },
   // Sunday (Day 0)
   sunday: {
-    label: "Sun: 10:00 AM - 1:00 PM",
+    label: "Sun: 10:00 AM - 1:30 PM",
     startHour: 10,
     startMinute: 0,
     endHour: 13,
-    endMinute: 0,
+    endMinute: 30,
   },
 };
 

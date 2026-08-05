@@ -1,9 +1,7 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { Calendar, X } from "lucide-react";
+import { Phone, X } from "lucide-react";
 
 import NavLinks from "./NavLinks";
-import { useAppointment } from "../bookAppointment";
 
 function MobileMenu({
   isOpen,
@@ -11,8 +9,6 @@ function MobileMenu({
   activeSection,
   setActiveSection,
 }) {
-  const { openModal } = useAppointment();
-
   useEffect(() => {
     if (!isOpen) return;
 
@@ -31,11 +27,6 @@ function MobileMenu({
       );
     };
   }, [isOpen, onClose]);
-
-  const handleBookAppointment = () => {
-    onClose();
-    openModal();
-  };
 
   if (!isOpen) return null;
 
@@ -108,9 +99,9 @@ function MobileMenu({
         {/* CTA */}
 
         <div className="border-t border-border p-6">
-          <button
-            type="button"
-            onClick={handleBookAppointment}
+          <a
+            href="tel:+918309479901"
+            onClick={onClose}
             className="
               group
               inline-flex
@@ -137,9 +128,9 @@ function MobileMenu({
               cursor-pointer
             "
           >
-            <span className="whitespace-nowrap">Book Appointment</span>
-            <Calendar size={18} className="shrink-0 transition-transform duration-300 group-hover:scale-110" />
-          </button>
+            <span className="whitespace-nowrap">Call Now</span>
+            <Phone size={18} className="shrink-0 transition-transform duration-300 group-hover:scale-110" />
+          </a>
         </div>
       </aside>
     </>

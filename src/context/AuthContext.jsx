@@ -75,7 +75,6 @@ export const AuthProvider = ({ children }) => {
         updateUser,
         isAuthenticated: Boolean(user && user.role),
         isDoctor: user?.role?.toLowerCase() === "doctor",
-        isReceptionist: user?.role?.toLowerCase() === "receptionist",
       }}
     >
       {children}
@@ -99,7 +98,6 @@ export const useAuth = () => {
       },
       isAuthenticated: Boolean(fallbackUser && fallbackUser.role),
       isDoctor: fallbackUser?.role?.toLowerCase() === "doctor",
-      isReceptionist: fallbackUser?.role?.toLowerCase() === "receptionist",
     };
   }
   return context;

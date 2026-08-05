@@ -24,7 +24,7 @@ API.interceptors.request.use((config) => {
 });
 
 /* ==========================================================
-   Auth Service
+   Auth Service (Doctor CMS Only)
 ========================================================== */
 
 const authService = {
@@ -51,13 +51,7 @@ const authService = {
       // Store authentic credentials
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
-
-      const normalizedRole = user.role.toLowerCase();
-      if (normalizedRole === "doctor") {
-        localStorage.setItem("doctorAuth", "true");
-      } else if (normalizedRole === "receptionist") {
-        localStorage.setItem("receptionistAuth", "true");
-      }
+      localStorage.setItem("doctorAuth", "true");
 
       return user;
     } catch (error) {
@@ -73,7 +67,6 @@ const authService = {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     localStorage.removeItem("doctorAuth");
-    localStorage.removeItem("receptionistAuth");
   },
 
   /**
@@ -107,7 +100,7 @@ const authService = {
   /**
    * Check if user has specific required role (case-insensitive)
    */
-  hasRole(requiredRole) {
+  hasRole(requiredRole = "doctor") {
     if (!this.isAuthenticated()) return false;
     const user = this.getUser();
     return user?.role?.toLowerCase() === requiredRole.toLowerCase();
@@ -118,13 +111,6 @@ const authService = {
    */
   isDoctor() {
     return this.hasRole("doctor");
-  },
-
-  /**
-   * Check if authenticated user is a receptionist
-   */
-  isReceptionist() {
-    return this.hasRole("receptionist");
   },
 
   /**
@@ -155,7 +141,7 @@ const authService = {
   },
 
   /**
-   * Update logged-in user profile (Doctor or Receptionist)
+   * Update logged-in user profile
    */
   async updateProfile(data) {
     const response = await API.put("/auth/profile", data);

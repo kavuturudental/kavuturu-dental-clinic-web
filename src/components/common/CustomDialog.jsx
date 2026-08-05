@@ -9,15 +9,8 @@ import {
   HelpCircle,
   X
 } from "lucide-react";
-import { treatmentOptions } from "../../data/appointment/treatments";
-
 const formatTreatmentName = (rawTreatment) => {
-  if (!rawTreatment) return "General Consultation";
-  const matched = treatmentOptions.find(
-    (opt) => opt.value === rawTreatment || opt.label.toLowerCase() === rawTreatment.toLowerCase()
-  );
-  if (matched) return matched.label;
-
+  if (!rawTreatment) return "General Dental Care";
   let formatted = rawTreatment
     .split("-")
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())

@@ -1,8 +1,7 @@
-import { useAppointment } from "../bookAppointment";
+import React from "react";
+import { Phone } from "lucide-react";
 
 const AboutCTAContent = ({ data }) => {
-  const { openModal } = useAppointment();
-
   return (
     <div className="max-w-lg">
       <h2
@@ -32,12 +31,13 @@ const AboutCTAContent = ({ data }) => {
       </p>
 
       <div className="mt-10">
-        <button
-          onClick={() => openModal()}
+        <a
+          href="tel:+918309479901"
           className="
             inline-flex
             items-center
             justify-center
+            gap-2
             rounded-full
             bg-emerald-600
             px-7
@@ -52,8 +52,9 @@ const AboutCTAContent = ({ data }) => {
             cursor-pointer
           "
         >
-          {data.button.label}
-        </button>
+          <Phone size={16} />
+          <span>Call Now</span>
+        </a>
       </div>
     </div>
   );

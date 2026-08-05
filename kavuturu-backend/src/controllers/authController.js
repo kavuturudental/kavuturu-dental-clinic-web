@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 const User = require("../models/User");
 const generateToken = require("../utils/generateToken");
-const sendEmail = require("../services/emailService");
+const sendEmail = require("../utils/sendEmail");
 
 /**
  * Validate email format helper
@@ -129,47 +129,43 @@ const updateProfile = async (req, res, next) => {
 
     user.name = name.trim();
 
-    if (user.role === "doctor") {
-      if (!qualification || !qualification.trim()) {
+    if (!qualification || !qualification.trim()) {
+      return res.status(400).json({
+        success: false,
+        message: "Qualification is required.",
+      });
+    }
+    user.qualification = qualification.trim();
+
+    if (!email || !email.trim()) {
+      return res.status(400).json({
+        success: false,
+        message: "Email Address is required.",
+      });
+    }
+
+    const trimmedEmail = email.trim().toLowerCase();
+
+    if (!isValidEmail(trimmedEmail)) {
+      return res.status(400).json({
+        success: false,
+        message: "Please enter a valid email address.",
+      });
+    }
+
+    if (trimmedEmail !== user.email) {
+      const emailExists = await User.findOne({ email: trimmedEmail });
+      if (emailExists) {
         return res.status(400).json({
           success: false,
-          message: "Qualification is required.",
+          message: "Email address is already in use by another account.",
         });
       }
-      user.qualification = qualification.trim();
+    }
 
-      if (!email || !email.trim()) {
-        return res.status(400).json({
-          success: false,
-          message: "Email Address is required.",
-        });
-      }
-
-      const trimmedEmail = email.trim().toLowerCase();
-
-      if (!isValidEmail(trimmedEmail)) {
-        return res.status(400).json({
-          success: false,
-          message: "Please enter a valid email address.",
-        });
-      }
-
-      if (trimmedEmail !== user.email) {
-        const emailExists = await User.findOne({ email: trimmedEmail });
-        if (emailExists) {
-          return res.status(400).json({
-            success: false,
-            message: "Email address is already in use by another account.",
-          });
-        }
-      }
-
-      user.email = trimmedEmail;
-      if (phone !== undefined) {
-        user.phone = phone ? phone.trim() : user.phone;
-      }
-    } else if (user.role === "receptionist") {
-      // Receptionists can ONLY edit their display name. Email & Phone remain locked as entered by Doctor.
+    user.email = trimmedEmail;
+    if (phone !== undefined) {
+      user.phone = phone ? phone.trim() : user.phone;
     }
 
     await user.save();

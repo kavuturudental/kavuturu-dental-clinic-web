@@ -1,13 +1,8 @@
-// src/components/common/InnerPageCTA.jsx
-
 import React from "react";
-import { Calendar, Phone } from "lucide-react";
-import { useAppointment } from "../website/bookAppointment";
+import { Phone } from "lucide-react";
 import ctaData from "../../data/website/ctaData";
 
 const InnerPageCTA = () => {
-  const { openModal } = useAppointment();
-
   return (
     <section className="bg-[#FCFCFD] py-12 sm:py-16 lg:py-20">
       <div className="mx-auto max-w-[1280px] px-5 sm:px-6 lg:px-8">
@@ -34,22 +29,21 @@ const InnerPageCTA = () => {
 
             {/* Right Action Column */}
             <div className="flex flex-col sm:flex-row items-center gap-4 shrink-0 w-full sm:w-auto">
-              <button
-                type="button"
-                onClick={() => openModal()}
+              <a
+                href="tel:+918309479901"
                 className="group inline-flex items-center justify-center gap-2.5 rounded-xl bg-secondary px-7 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base font-bold text-white whitespace-nowrap shadow-lg shadow-green-500/25 transition-all duration-300 hover:-translate-y-0.5 hover:bg-secondary-dark hover:shadow-xl hover:shadow-green-500/30 cursor-pointer w-full sm:w-auto"
               >
+                <Phone size={18} className="shrink-0 transition-transform duration-300 group-hover:scale-110" />
                 <span className="whitespace-nowrap">{ctaData.primaryButton.label}</span>
-                <Calendar size={18} className="shrink-0 transition-transform duration-300 group-hover:scale-110" />
-              </button>
+              </a>
 
               {ctaData.secondaryButton && (
                 <a
                   href={ctaData.secondaryButton.link}
                   className="group inline-flex items-center justify-center gap-2.5 rounded-xl border border-white/30 bg-white/10 backdrop-blur-md px-7 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base font-bold text-white whitespace-nowrap shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/20 hover:border-white/50 hover:shadow-md cursor-pointer w-full sm:w-auto"
                 >
-                  <span className="whitespace-nowrap">{ctaData.secondaryButton.label}</span>
                   <Phone size={18} className="shrink-0 transition-transform duration-300 group-hover:scale-110" />
+                  <span className="whitespace-nowrap">{ctaData.secondaryButton.label}</span>
                 </a>
               )}
             </div>

@@ -54,13 +54,12 @@ function HeroStats() {
             overflow-hidden
             rounded-3xl
             border
-            border-slate-200/80
-            bg-white
-            shadow-[0_8px_24px_rgba(14,42,109,0.06)]
+            border-blue-900/30
+            bg-gradient-to-r from-[#0E2A6D] via-[#0D2663] to-[#0A1F52]
+            shadow-[0_15px_45px_rgba(14,42,109,0.22)]
             transition-all
             duration-300
-            hover:border-sky-300
-            hover:shadow-xl
+            hover:shadow-2xl
           "
         >
           <div
@@ -69,7 +68,7 @@ function HeroStats() {
               grid-cols-2
               divide-x
               divide-y
-              divide-slate-100
+              divide-blue-800/40
 
               lg:grid-cols-[1fr_1.15fr_0.95fr_1.25fr]
               lg:divide-y-0
@@ -107,27 +106,30 @@ function HeroStats() {
                   <div
                     className="
                       flex
-                      h-9
-                      w-9
-                      lg:h-11
-                      lg:w-11
+                      h-10
+                      w-10
+                      lg:h-12
+                      lg:w-12
                       shrink-0
                       items-center
                       justify-center
 
-                      rounded-full
+                      rounded-2xl
 
-                      bg-emerald-50/80
+                      bg-white/15
+                      backdrop-blur-md
+                      border
+                      border-white/10
                     "
                   >
                     <Icon
-                      strokeWidth={1.75}
+                      strokeWidth={2}
                       className="
-                        h-4.5
-                        w-4.5
-                        lg:h-5.5
-                        lg:w-5.5
-                        text-secondary
+                        h-5
+                        w-5
+                        lg:h-6
+                        lg:w-6
+                        text-emerald-400
                       "
                     />
                   </div>
@@ -138,7 +140,7 @@ function HeroStats() {
                       className={`
                         font-black
                         leading-tight
-                        text-[#0E2A6D]
+                        text-white
                         ${
                           isLongTextValue
                             ? "text-base sm:text-lg lg:text-[20px] whitespace-nowrap"
@@ -157,7 +159,7 @@ function HeroStats() {
                         font-bold
                         leading-snug
                         whitespace-nowrap
-                        text-slate-700
+                        text-slate-100
                       "
                     >
                       {title}
@@ -169,7 +171,7 @@ function HeroStats() {
                           mt-0.5
                           text-xs
                           leading-4
-                          text-slate-500
+                          text-blue-200/80
                         "
                       >
                         {subtitle}

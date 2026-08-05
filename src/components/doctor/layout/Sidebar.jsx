@@ -3,22 +3,12 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation, NavLink } from "react-router-dom";
 import authService from "../../../services/authService";
-import { useAuth } from "../../../context/AuthContext";
-import useAppointmentRequests from "../../../hooks/useAppointmentRequests";
-import useNotifications from "../../../hooks/useNotifications";
 import {
-  Calendar,
-  FileText,
-  Users,
-  Bell,
   User,
   LogOut,
   ChevronDown,
   ChevronRight,
   Globe,
-  CalendarDays,
-  Download,
-  BarChart2,
   Image as ImageIcon,
   MessageSquare,
   BookOpen,
@@ -26,27 +16,15 @@ import {
   Sparkles,
   Info,
   Layers,
-  UserCheck
+  UserCheck,
+  LayoutDashboard,
+  Settings
 } from "lucide-react";
 import logo from "../../../assets/images/logos/logo.png";
 
 const doctorNavigationBase = [
   {
-    category: "Appointment Management",
-    icon: Calendar,
-    basePath: "/doctor/appointment-management",
-    items: [
-      { name: "Appointments", icon: Calendar, path: "/doctor/appointment-management/appointments" },
-      { name: "Appointment Requests", icon: FileText, path: "/doctor/appointment-management/requests" },
-      { name: "Patients", icon: Users, path: "/doctor/appointment-management/patients" },
-      { name: "Calendar", icon: CalendarDays, path: "/doctor/appointment-management/calendar" },
-      { name: "Data Export", icon: Download, path: "/doctor/appointment-management/data-export" },
-      { name: "Insights", icon: BarChart2, path: "/doctor/appointment-management/insights" },
-      { name: "Notifications", icon: Bell, path: "/doctor/appointment-management/notifications" }
-    ]
-  },
-  {
-    category: "Website Management",
+    category: "Website Management CMS",
     icon: Globe,
     basePath: "/doctor/website-management",
     items: [
@@ -56,9 +34,9 @@ const doctorNavigationBase = [
       { name: "Doctors", icon: Award, path: "/doctor/website-management/doctors" },
       { name: "Before & After", icon: ImageIcon, path: "/doctor/website-management/before-after" },
       { name: "Gallery", icon: ImageIcon, path: "/doctor/website-management/gallery" },
-      { name: "Reviews", icon: MessageSquare, path: "/doctor/website-management/testimonials" },
-      { name: "Blogs", icon: BookOpen, path: "/doctor/website-management/blogs" },
-      { name: "Contact Info", icon: Info, path: "/doctor/website-management/clinic-info" }
+      { name: "Testimonials & Reviews", icon: MessageSquare, path: "/doctor/website-management/testimonials" },
+      { name: "Blogs & Articles", icon: BookOpen, path: "/doctor/website-management/blogs" },
+      { name: "Contact & Location", icon: Info, path: "/doctor/website-management/contact" }
     ]
   },
   {
@@ -66,31 +44,18 @@ const doctorNavigationBase = [
     icon: User,
     basePath: "/doctor/profile",
     items: [
-      { name: "Profile Details", icon: User, path: "/doctor/profile" }
+      { name: "Doctor Profile", icon: User, path: "/doctor/profile" }
     ]
   }
 ];
 
 export default function Sidebar({ className = "", onCloseMobile, onLogoutClick }) {
-  const { user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { requests } = useAppointmentRequests();
-  const { notifications } = useNotifications();
-
-  const pendingRequestsCount = Array.isArray(requests)
-    ? requests.filter((r) => (r.status || "").toLowerCase() === "pending").length
-    : 0;
-
-  const unreadNotificationsCount = Array.isArray(notifications)
-    ? notifications.filter((n) => !n.read && !n.isRead).length
-    : 0;
-
   // State to track expanded sections
   const [expandedCategories, setExpandedCategories] = useState({
-    "Appointment Management": true,
-    "Website Management": location.pathname.startsWith("/doctor/website-management"),
+    "Website Management CMS": true,
     "My Account": location.pathname.startsWith("/doctor/profile")
   });
 
@@ -123,16 +88,16 @@ export default function Sidebar({ className = "", onCloseMobile, onLogoutClick }
             />
           </div>
 
-          {/* Success Green Doctor Portal Pill Badge */}
+          {/* Success Green Doctor CMS Portal Pill Badge */}
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F0FDF4] text-[#16A34A] border border-[#BBF7D0] shadow-2xs">
             <UserCheck className="w-3.5 h-3.5 text-[#16A34A] flex-shrink-0" />
             <span className="text-[11px] font-black tracking-wider uppercase">
-              Doctor Portal
+              Doctor CMS Admin
             </span>
           </div>
         </div>
 
-        {/* Navigation Categories & Sub-Items with Light Blue #EFF6FF & Blue #2563EB Active Item Styling */}
+        {/* Navigation Categories & Sub-Items */}
         <nav className="p-3 space-y-3 overflow-y-auto custom-scrollbar flex-1">
           {doctorNavigationBase.map((group) => {
             const isGroupActive = location.pathname.startsWith(group.basePath);
@@ -163,17 +128,6 @@ export default function Sidebar({ className = "", onCloseMobile, onLogoutClick }
                       const Icon = item.icon;
                       const isActive = location.pathname === item.path;
 
-                      let badgeValue = 0;
-                      let badgeColorClass = "";
-
-                      if (item.name === "Appointment Requests") {
-                        badgeValue = pendingRequestsCount;
-                        badgeColorClass = "bg-[#F59E0B] text-white";
-                      } else if (item.name === "Notifications") {
-                        badgeValue = unreadNotificationsCount;
-                        badgeColorClass = "bg-[#DC2626] text-white";
-                      }
-
                       return (
                         <NavLink
                           key={item.name}
@@ -193,14 +147,6 @@ export default function Sidebar({ className = "", onCloseMobile, onLogoutClick }
                             />
                             <span className="truncate">{item.name}</span>
                           </div>
-
-                          {badgeValue > 0 && (
-                            <span
-                              className={`px-2 py-0.5 rounded-full text-[10px] font-extrabold shadow-xs ${badgeColorClass}`}
-                            >
-                              {badgeValue}
-                            </span>
-                          )}
                         </NavLink>
                       );
                     })}

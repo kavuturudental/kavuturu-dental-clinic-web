@@ -62,15 +62,7 @@ const LoginCard = () => {
         password
       );
 
-      const userRole = (user.role || "").toLowerCase();
-
-      if (userRole === "doctor") {
-        navigate("/doctor/appointment-management/appointments");
-      } else if (userRole === "receptionist") {
-        navigate("/receptionist/appointments");
-      } else {
-        navigate("/login");
-      }
+      navigate("/doctor/website-management/hero");
     } catch (err) {
       console.error("Login Error:", err);
       setAuthError(

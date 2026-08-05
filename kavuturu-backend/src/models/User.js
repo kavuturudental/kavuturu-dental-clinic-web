@@ -36,8 +36,8 @@ const userSchema = new mongoose.Schema(
 
     role: {
       type: String,
-      enum: ["doctor", "receptionist"],
-      required: [true, "Role is required"],
+      enum: ["doctor"],
+      default: "doctor",
     },
 
     phone: {

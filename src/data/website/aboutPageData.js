@@ -20,8 +20,8 @@ const aboutPageData = {
     },
 
     cta: {
-      label: "Book Your Appointment",
-      href: "/appointment",
+      label: "Call Now",
+      href: "tel:+918309479901",
     },
   },
 
@@ -161,8 +161,8 @@ const aboutPageData = {
     },
 
     button: {
-      label: "Book Your Appointment",
-      href: "/appointment",
+      label: "Call Now",
+      href: "tel:+918309479901",
     },
   },
 };
