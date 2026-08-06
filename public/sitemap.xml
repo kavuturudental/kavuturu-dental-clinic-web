@@ -29,11 +29,46 @@
         <priority>0.8</priority>
     </url>
 
+    <!-- Before & After -->
+    <url>
+        <loc>https://www.kavuturudentalclinic.com/before-after</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Gallery -->
+    <url>
+        <loc>https://www.kavuturudentalclinic.com/gallery</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Testimonials -->
+    <url>
+        <loc>https://www.kavuturudentalclinic.com/testimonials</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
     <!-- Blogs -->
     <url>
         <loc>https://www.kavuturudentalclinic.com/blogs</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
+    </url>
+
+    <!-- Blog: Dental Implants -->
+    <url>
+        <loc>https://www.kavuturudentalclinic.com/blogs/dental-implants-the-permanent-solution-for-missing-teeth</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- Blog: Laser Root Canal Treatment -->
+    <url>
+        <loc>https://www.kavuturudentalclinic.com/blogs/laser-root-canal-treatment-a-faster-safer-more-comfortable-way-to-save-your-tooth</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
     </url>
 
 </urlset>
