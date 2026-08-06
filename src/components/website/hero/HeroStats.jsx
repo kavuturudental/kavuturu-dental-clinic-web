@@ -34,13 +34,13 @@ function HeroStats() {
   const getBorderClass = (index) => {
     switch (index) {
       case 0:
-        return "border-b border-blue-800/40 sm:border-r sm:border-b lg:border-r lg:border-b-0";
+        return "border-b border-blue-800/40 sm:border-r sm:border-b lg:border-0";
       case 1:
-        return "border-b border-blue-800/40 sm:border-r-0 sm:border-b lg:border-r lg:border-b-0";
+        return "border-b border-blue-800/40 sm:border-r-0 sm:border-b lg:border-0";
       case 2:
-        return "border-b border-blue-800/40 sm:border-r sm:border-b-0 lg:border-r lg:border-b-0";
+        return "border-b border-blue-800/40 sm:border-r sm:border-b-0 lg:border-0";
       case 3:
-        return "border-b-0 sm:border-r-0 sm:border-b-0 lg:border-r-0 lg:border-b-0";
+        return "border-b-0 sm:border-r-0 sm:border-b-0 lg:border-0";
       default:
         return "border-blue-800/40";
     }
@@ -55,6 +55,7 @@ function HeroStats() {
         lg:-mt-32
         pb-12
         sm:pb-16
+        lg:pb-16
         w-full
         max-w-full
         overflow-hidden
@@ -66,6 +67,7 @@ function HeroStats() {
           max-w-[1280px]
           px-4
           sm:px-6
+          lg:px-6
           w-full
           max-w-full
         "
@@ -91,6 +93,9 @@ function HeroStats() {
               grid-cols-1
               sm:grid-cols-2
               lg:grid-cols-[1fr_1.15fr_0.95fr_1.25fr]
+              lg:divide-x
+              lg:divide-y-0
+              lg:divide-blue-800/40
               w-full
               max-w-full
             "
@@ -169,11 +174,10 @@ function HeroStats() {
                         leading-tight
                         text-white
                         min-w-0
-                        break-words
                         ${
                           isLongTextValue
-                            ? "text-base sm:text-lg lg:text-[20px]"
-                            : "text-xl sm:text-2xl lg:text-3xl"
+                            ? "text-base sm:text-lg lg:text-[20px] break-words lg:break-normal lg:whitespace-nowrap"
+                            : "text-xl sm:text-2xl lg:text-3xl break-words lg:break-normal lg:whitespace-nowrap"
                         }
                       `}
                     >
@@ -190,6 +194,8 @@ function HeroStats() {
                         text-slate-100
                         min-w-0
                         break-words
+                        lg:break-normal
+                        lg:whitespace-nowrap
                       "
                     >
                       {title}
@@ -201,10 +207,12 @@ function HeroStats() {
                           mt-0.5
                           text-[11px]
                           sm:text-xs
+                          lg:text-xs
                           leading-4
                           text-blue-200/80
                           min-w-0
                           break-words
+                          lg:break-normal
                         "
                       >
                         {subtitle}
