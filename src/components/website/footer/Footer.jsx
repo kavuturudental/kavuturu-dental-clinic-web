@@ -7,7 +7,6 @@ import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import clinicLogo from "../../../assets/images/logos/footer-logo.png";
 import FooterColumn from "./FooterColumn";
 import FooterBottom from "./FooterBottom";
-import SocialLinks from "./SocialLinks";
 import { quickLinks, treatments, contactDetails as defaultDetails } from "./footerData";
 import { getContact } from "../../../services/website/contactService";
 
@@ -49,7 +48,6 @@ const Footer = () => {
   const monFriHours = contactData?.timings?.monFri || defaultDetails.hours.weekdays;
   const satHours = contactData?.timings?.saturday || defaultDetails.hours.weekdays;
   const sundayHours = contactData?.timings?.sunday || defaultDetails.hours.sunday;
-  const socialLinksData = contactData?.socialLinks;
 
   return (
     <footer className="bg-[#0B1D3F] rounded-t-[44px] shadow-[0_-20px_50px_rgba(11,29,63,0.15)]">
@@ -73,11 +71,6 @@ const Footer = () => {
             <p className="mt-3 text-[13px] leading-relaxed text-slate-400 max-w-[260px]">
               Delivering premium dental care with advanced laser technology, experienced specialists, and a patient-first approach in Tirupati.
             </p>
-
-            {/* Social Icons */}
-            <div className="mt-5">
-              <SocialLinks socialLinks={socialLinksData} />
-            </div>
           </div>
 
           {/* ── Column 2 : Quick Links ── */}
