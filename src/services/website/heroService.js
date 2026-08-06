@@ -37,10 +37,10 @@ export const getHeroContent = async () => {
   return {
     success: true,
     data: {
-      trustBadge: hero.badge || hero.trustBadge || heroData.badge?.text || "Trusted Dental Clinic in Vijayawada",
-      heading: hero.title || hero.heading || heroData.heading || "Expert Care for Your Teeth & Smile",
-      accentSubheading: hero.accentSubheading || heroData.accentSubheading || "Modern Dentistry & Laser Treatments",
-      description: hero.subtitle || hero.description || heroData.description || "Experience pain-free dental care with advanced laser technology.",
+      trustBadge: hero.badge || hero.trustBadge || heroData.badge?.text || "EXPERT CARE. ADVANCED TECHNOLOGY.",
+      heading: hero.title || hero.heading || heroData.heading || "Advanced Laser & Implant Dentistry",
+      accentSubheading: hero.accentSubheading || heroData.accentSubheading || "for a Healthier, Happier Smile",
+      description: hero.subtitle || hero.description || heroData.description || "Painless treatments. Beautiful smiles.\nPersonalized care for you and your family.",
       stats: Array.isArray(hero.stats) && hero.stats.length === 4 ? hero.stats : defaultStats
     }
   };

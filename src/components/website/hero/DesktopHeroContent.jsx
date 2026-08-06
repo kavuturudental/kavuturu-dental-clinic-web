@@ -132,6 +132,7 @@ function DesktopHeroContent() {
               text-lg
               leading-8
               text-slate-600
+              whitespace-pre-line
             "
           >
             {hero?.description || heroData.description}

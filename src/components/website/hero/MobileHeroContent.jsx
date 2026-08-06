@@ -110,6 +110,7 @@ function MobileHeroContent() {
           text-base
           leading-7
           text-slate-600
+          whitespace-pre-line
         "
       >
         {hero?.description || heroData.description}

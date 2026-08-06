@@ -195,11 +195,11 @@ export default function HeroCMS() {
           </div>
           <p className="text-[11px] text-slate-500 font-normal mt-1">Edit the main headline, badge, and description.</p>
 
-          {/* Two-Column Layout: Trust Badge & Accent Subheading */}
+          {/* Two-Column Layout: Trust Badge & Accent Heading */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
             <div>
               <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
-                Trust Badge *
+                1. Trust Badge *
               </label>
               <div className="relative">
                 <ShieldCheck className="w-4 h-4 text-slate-400 absolute left-3.5 top-2.5" />
@@ -211,7 +211,7 @@ export default function HeroCMS() {
                     if (errors.trustBadge) setErrors(prev => ({ ...prev, trustBadge: "" }));
                   }}
                   required
-                  placeholder="e.g. Eluru's Most Trusted Dental Clinic"
+                  placeholder="e.g. EXPERT CARE. ADVANCED TECHNOLOGY."
                   className={`h-9.5 w-full rounded-xl border ${errors.trustBadge ? "border-red-400 bg-red-50/30" : "border-slate-200 bg-slate-50/60"} pl-10 pr-3.5 font-bold text-slate-900 outline-none focus:border-[#0E2A6D] focus:bg-white transition-all`}
                 />
               </div>
@@ -222,7 +222,7 @@ export default function HeroCMS() {
 
             <div>
               <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
-                Accent Subheading *
+                3. Accent Heading *
               </label>
               <div className="relative">
                 <Tag className="w-4 h-4 text-slate-400 absolute left-3.5 top-2.5" />
@@ -234,7 +234,7 @@ export default function HeroCMS() {
                     if (errors.accentSubheading) setErrors(prev => ({ ...prev, accentSubheading: "" }));
                   }}
                   required
-                  placeholder="e.g. Modern Dentistry & Laser Treatments"
+                  placeholder="e.g. for a Healthier, Happier Smile"
                   className={`h-9.5 w-full rounded-xl border ${errors.accentSubheading ? "border-red-400 bg-red-50/30" : "border-slate-200 bg-slate-50/60"} pl-10 pr-3.5 font-bold text-slate-900 outline-none focus:border-[#0E2A6D] focus:bg-white transition-all`}
                 />
               </div>
@@ -244,10 +244,10 @@ export default function HeroCMS() {
             </div>
           </div>
 
-          {/* Hero Heading (Full Width) */}
+          {/* Main Heading (Full Width) */}
           <div className="text-xs">
             <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
-              Hero Heading *
+              2. Main Heading *
             </label>
             <div className="relative">
               <Heading className="w-4 h-4 text-slate-400 absolute left-3.5 top-2.5" />
@@ -259,7 +259,7 @@ export default function HeroCMS() {
                   if (errors.heading) setErrors(prev => ({ ...prev, heading: "" }));
                 }}
                 required
-                placeholder="e.g. Advanced Dental Care for Pain-Free Smiles"
+                placeholder="e.g. Advanced Laser & Implant Dentistry"
                 className={`h-9.5 w-full rounded-xl border ${errors.heading ? "border-red-400 bg-red-50/30" : "border-slate-200 bg-slate-50/60"} pl-10 pr-3.5 font-bold text-slate-900 outline-none focus:border-[#0E2A6D] focus:bg-white transition-all`}
               />
             </div>
@@ -268,10 +268,10 @@ export default function HeroCMS() {
             )}
           </div>
 
-          {/* Hero Description (Full Width) */}
+          {/* Description (Multiline) */}
           <div className="text-xs">
             <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
-              Hero Description *
+              4. Description (Multiline) *
             </label>
             <div className="relative">
               <FileText className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
@@ -283,7 +283,7 @@ export default function HeroCMS() {
                   if (errors.description) setErrors(prev => ({ ...prev, description: "" }));
                 }}
                 required
-                placeholder="Comprehensive dental treatments using state-of-the-art technology..."
+                placeholder="e.g. Painless treatments. Beautiful smiles.&#10;Personalized care for you and your family."
                 className={`w-full rounded-xl border ${errors.description ? "border-red-400 bg-red-50/30" : "border-slate-200 bg-slate-50/60"} pl-10 pr-3.5 pt-2.5 font-medium text-slate-800 outline-none focus:border-[#0E2A6D] focus:bg-white leading-relaxed transition-all`}
               />
             </div>

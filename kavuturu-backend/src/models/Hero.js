@@ -33,7 +33,7 @@ const heroSchema = new mongoose.Schema(
             type: String,
             required: true,
             trim: true,
-            default: "Expert Care. Advanced Technology.",
+            default: "EXPERT CARE. ADVANCED TECHNOLOGY.",
         },
 
         heading: {
@@ -55,7 +55,7 @@ const heroSchema = new mongoose.Schema(
             required: true,
             trim: true,
             default:
-                "Painless treatments. Beautiful smiles. Personalized care for you and your family.",
+                "Painless treatments. Beautiful smiles.\nPersonalized care for you and your family.",
         },
 
         stats: {
