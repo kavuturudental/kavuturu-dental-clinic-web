@@ -1,4 +1,9 @@
 User-agent: *
+
 Allow: /
 
-Sitemap: https://www.kavuturudental.com/sitemap.xml
+Disallow: /login
+Disallow: /doctor/
+Disallow: /receptionist/
+
+Sitemap: https://www.kavuturudentalclinic.com/sitemap.xml
