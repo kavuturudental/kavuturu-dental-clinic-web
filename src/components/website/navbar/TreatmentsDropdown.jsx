@@ -1,16 +1,58 @@
 // src/components/navbar/TreatmentsDropdown.jsx
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { ChevronDown } from "lucide-react";
 import clsx from "clsx";
 
-import treatments from "../../../data/website/treatments";
+import staticTreatments from "../../../data/website/treatments";
+import { getTreatments } from "../../../services/website/treatmentService";
+
+const slugify = (text) =>
+  text
+    ? text
+        .toString()
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, "-")
+        .replace(/[^\w\-]+/g, "")
+        .replace(/\-\-+/g, "-")
+    : "";
 
 function TreatmentsDropdown({ activeSection }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [treatmentList, setTreatmentList] = useState(staticTreatments);
   const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+    const fetchDropdownTreatments = async () => {
+      try {
+        const response = await getTreatments({ status: "Active" });
+        if (response.success && Array.isArray(response.data) && response.data.length > 0) {
+          setTreatmentList(response.data);
+        } else {
+          setTreatmentList(staticTreatments);
+        }
+      } catch (err) {
+        console.error("Failed to load treatments for dropdown:", err);
+        setTreatmentList(staticTreatments);
+      }
+    };
+
+    fetchDropdownTreatments();
+
+    const handleUpdate = () => fetchDropdownTreatments();
+    window.addEventListener("STATE_UPDATED", handleUpdate);
+    window.addEventListener("TREATMENT_UPDATED", handleUpdate);
+    window.addEventListener("TREATMENTS_UPDATED", handleUpdate);
+
+    return () => {
+      window.removeEventListener("STATE_UPDATED", handleUpdate);
+      window.removeEventListener("TREATMENT_UPDATED", handleUpdate);
+      window.removeEventListener("TREATMENTS_UPDATED", handleUpdate);
+    };
+  }, []);
 
   const isTreatmentsActive =
     location.pathname === "/"
@@ -22,10 +64,7 @@ function TreatmentsDropdown({ activeSection }) {
     setIsOpen(false);
   };
 
-  const handleViewAllClick = () => {
-    navigate("/treatments");
-    setIsOpen(false);
-  };
+  const displayTreatments = treatmentList.length > 0 ? treatmentList : staticTreatments;
 
   return (
     <li
@@ -49,7 +88,8 @@ function TreatmentsDropdown({ activeSection }) {
             "h-4 w-4 transition-transform duration-200",
             isOpen && "rotate-180"
           )}
-        />{!isTreatmentsActive && (
+        />
+        {!isTreatmentsActive && (
           <span className="absolute -bottom-1 left-0 h-[2px] w-0 rounded-full bg-secondary transition-all duration-300 group-hover:w-full" />
         )}
         {isTreatmentsActive && (
@@ -73,6 +113,9 @@ function TreatmentsDropdown({ activeSection }) {
           shadow-xl
           transition-all
           duration-200
+          max-h-[80vh]
+          overflow-y-auto
+          custom-scrollbar
           ${
             isOpen
               ? "visible translate-y-0 opacity-100"
@@ -81,32 +124,38 @@ function TreatmentsDropdown({ activeSection }) {
         `}
       >
         <ul className="space-y-1">
-          {treatments.map((treatment) => (
-            <li key={treatment.id}>
-              <button
-                type="button"
-                onClick={() =>
-                  handleTreatmentClick(treatment.slug)
-                }
-                className="
-                  w-full
-                  rounded-xl
-                  px-4
-                  py-3
-                  text-left
-                  text-[15px]
-                  font-medium
-                  text-text-primary
-                  transition-all
-                  duration-200
-                  hover:bg-slate-50
-                  hover:text-primary
-                "
-              >
-                {treatment.title}
-              </button>
-            </li>
-          ))}
+          {displayTreatments.map((treatment, index) => {
+            const title = treatment.name || treatment.title;
+            const slug =
+              treatment.slug ||
+              slugify(title) ||
+              (treatment._id ? `treatment-${treatment._id}` : `section-${index}`);
+
+            return (
+              <li key={treatment._id || treatment.id || index}>
+                <button
+                  type="button"
+                  onClick={() => handleTreatmentClick(slug)}
+                  className="
+                    w-full
+                    rounded-xl
+                    px-4
+                    py-3
+                    text-left
+                    text-[15px]
+                    font-medium
+                    text-text-primary
+                    transition-all
+                    duration-200
+                    hover:bg-slate-50
+                    hover:text-primary
+                  "
+                >
+                  {title}
+                </button>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </li>

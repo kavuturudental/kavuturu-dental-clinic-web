@@ -48,6 +48,17 @@ const INITIAL_SEED_TREATMENTS = [
     homepageOrder: 4,
     displayOrder: 4,
   },
+  {
+    name: "Smile Makeover",
+    image: "",
+    previewDescription: "Transform your smile with a personalized combination of cosmetic dental treatments.",
+    fullDescription: "A Smile Makeover combines multiple cosmetic dental procedures to improve the appearance of your teeth. Treatments may include veneers, whitening, crowns, or orthodontics, all customized to enhance facial aesthetics while maintaining natural function.",
+    highlights: ["Customized Plan", "Natural Results", "Improved Aesthetics", "Boosts Confidence"],
+    status: "Active",
+    showOnHomepage: true,
+    homepageOrder: 5,
+    displayOrder: 5,
+  },
 ];
 
 /**
@@ -75,6 +86,32 @@ const getTreatments = async (req, res, next) => {
 
         if (treatments.length === 0 && !status && !homepage) {
             treatments = await Treatment.insertMany(INITIAL_SEED_TREATMENTS);
+        } else {
+            // Auto-sync Smile Makeover treatment content
+            let smileMakeover = await Treatment.findOne({ name: "Smile Makeover" });
+            if (!smileMakeover) {
+                await Treatment.create(INITIAL_SEED_TREATMENTS[4]);
+                treatments = await Treatment.find(query).sort(sortOption);
+            } else {
+                let updated = false;
+                const sm = INITIAL_SEED_TREATMENTS[4];
+                if (smileMakeover.previewDescription !== sm.previewDescription) {
+                    smileMakeover.previewDescription = sm.previewDescription;
+                    updated = true;
+                }
+                if (smileMakeover.fullDescription !== sm.fullDescription) {
+                    smileMakeover.fullDescription = sm.fullDescription;
+                    updated = true;
+                }
+                if (JSON.stringify(smileMakeover.highlights) !== JSON.stringify(sm.highlights)) {
+                    smileMakeover.highlights = sm.highlights;
+                    updated = true;
+                }
+                if (updated) {
+                    await smileMakeover.save();
+                    treatments = await Treatment.find(query).sort(sortOption);
+                }
+            }
         }
 
         return res.status(200).json({

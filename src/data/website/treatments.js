@@ -122,6 +122,25 @@ const treatments = [
       "Reduced radiation exposure",
     ],
   },
+  {
+    id: 9,
+    slug: "smile-makeover",
+    title: "Smile Makeover",
+    name: "Smile Makeover",
+    image: dentalImplants,
+    previewDescription:
+      "Transform your smile with a personalized combination of cosmetic dental treatments.",
+    description:
+      "A Smile Makeover combines multiple cosmetic dental procedures to improve the appearance of your teeth. Treatments may include veneers, whitening, crowns, or orthodontics, all customized to enhance facial aesthetics while maintaining natural function.",
+    fullDescription:
+      "A Smile Makeover combines multiple cosmetic dental procedures to improve the appearance of your teeth. Treatments may include veneers, whitening, crowns, or orthodontics, all customized to enhance facial aesthetics while maintaining natural function.",
+    highlights: [
+      "Customized Plan",
+      "Natural Results",
+      "Improved Aesthetics",
+      "Boosts Confidence",
+    ],
+  },
 ];
 
 export default treatments;

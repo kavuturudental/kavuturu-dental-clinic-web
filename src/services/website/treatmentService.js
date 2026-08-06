@@ -45,6 +45,12 @@ export const createTreatment = async (payload) => {
       Authorization: `Bearer ${token}`
     }
   });
+
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new CustomEvent("STATE_UPDATED", { detail: { source: "CMS_TREATMENT_CREATE" } }));
+    window.dispatchEvent(new CustomEvent("TREATMENTS_UPDATED", { detail: { action: "create" } }));
+  }
+
   return response.data;
 };
 
@@ -58,6 +64,12 @@ export const updateTreatment = async (id, payload) => {
       Authorization: `Bearer ${token}`
     }
   });
+
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new CustomEvent("STATE_UPDATED", { detail: { source: "CMS_TREATMENT_UPDATE" } }));
+    window.dispatchEvent(new CustomEvent("TREATMENTS_UPDATED", { detail: { action: "update" } }));
+  }
+
   return response.data;
 };
 
@@ -71,6 +83,12 @@ export const deleteTreatment = async (id) => {
       Authorization: `Bearer ${token}`
     }
   });
+
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new CustomEvent("STATE_UPDATED", { detail: { source: "CMS_TREATMENT_DELETE" } }));
+    window.dispatchEvent(new CustomEvent("TREATMENTS_UPDATED", { detail: { action: "delete" } }));
+  }
+
   return response.data;
 };
 
