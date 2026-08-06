@@ -3,6 +3,9 @@ import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 
 import Navbar from "./components/website/navbar/Navbar";
 import ScrollToTop from "./components/common/ScrollToTop";
+import FloatingSocialBar from "./components/common/FloatingSocialBar";
+import StructuredData from "./components/seo/StructuredData";
+
 import { AuthProvider } from "./context/AuthContext";
 import { DialogProvider } from "./context/DialogContext";
 
@@ -31,7 +34,6 @@ import DoctorRoutes from "./routes/doctorRoutes";
 
 // Common
 import NotFound from "./pages/website/NotFound";
-import FloatingSocialBar from "./components/common/FloatingSocialBar";
 
 function AppContent() {
   const location = useLocation();
@@ -46,10 +48,16 @@ function AppContent() {
 
   return (
     <>
+      {/* SEO Structured Data */}
+      <StructuredData />
+
+      {/* Scroll to Top */}
       <ScrollToTop />
 
+      {/* Website Navbar */}
       {!hideLayout && <Navbar />}
 
+      {/* Website Routes */}
       <Routes>
         {/* =========================
             Public Website
@@ -66,27 +74,49 @@ function AppContent() {
         <Route path="/before-after" element={<BeforeAfter />} />
         <Route path="/book-appointment" element={<BookAppointment />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+        <Route
+          path="/terms-and-conditions"
+          element={<TermsAndConditions />}
+        />
 
         {/* =========================
             Authentication
         ========================== */}
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password/:token" element={<ResetPassword />} />
+        <Route
+          path="/reset-password/:token"
+          element={<ResetPassword />}
+        />
 
         {/* =========================
             Doctor CMS Portal
         ========================== */}
-        <Route path="/doctor" element={<Navigate to="/doctor/website-management/hero" replace />} />
-        <Route path="/doctor/*" element={<DoctorRoutes />} />
+        <Route
+          path="/doctor"
+          element={
+            <Navigate
+              to="/doctor/website-management/hero"
+              replace
+            />
+          }
+        />
+
+        <Route
+          path="/doctor/*"
+          element={<DoctorRoutes />}
+        />
 
         {/* =========================
             404 Page
         ========================== */}
-        <Route path="*" element={<NotFound />} />
+        <Route
+          path="*"
+          element={<NotFound />}
+        />
       </Routes>
 
+      {/* Floating Social Icons */}
       {!hideLayout && <FloatingSocialBar />}
     </>
   );
