@@ -1,5 +1,3 @@
-// src/pages/doctor/WebsiteManagement/Contact.jsx
-
 import React, { useState, useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 import { 
@@ -52,6 +50,24 @@ const FacebookIcon = ({ size = 16, className = "" }) => (
   </svg>
 );
 
+const YoutubeIcon = ({ size = 16, className = "" }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17" />
+    <path d="m10 15 5-3-5-3z" />
+  </svg>
+);
+
 /**
  * Extract clean URL if full <iframe src="..."> HTML code was pasted
  */
@@ -101,14 +117,15 @@ export default function ContactCMS() {
     email: "",
     mapsLink: "",
     timings: {
-      monFri: "9:00 AM – 8:00 PM",
-      saturday: "9:00 AM – 6:00 PM",
-      sunday: "Closed",
+      monSat: "9:30 AM – 9:00 PM",
+      sunday: "10:00 AM – 1:30 PM",
     },
     socialLinks: {
-      instagram: "",
       facebook: "",
+      instagram: "",
       whatsapp: "",
+      callPhone: "",
+      youtube: "",
     },
   });
 
@@ -131,14 +148,15 @@ export default function ContactCMS() {
           email: res.data.email || "",
           mapsLink: res.data.mapsLink || "",
           timings: {
-            monFri: res.data.timings?.monFri || "9:00 AM – 8:00 PM",
-            saturday: res.data.timings?.saturday || "9:00 AM – 6:00 PM",
-            sunday: res.data.timings?.sunday || "Closed",
+            monSat: res.data.timings?.monSat || res.data.timings?.monFri || "9:30 AM – 9:00 PM",
+            sunday: res.data.timings?.sunday || "10:00 AM – 1:30 PM",
           },
           socialLinks: {
-            instagram: res.data.socialLinks?.instagram || "",
             facebook: res.data.socialLinks?.facebook || "",
+            instagram: res.data.socialLinks?.instagram || "",
             whatsapp: res.data.socialLinks?.whatsapp || "",
+            callPhone: res.data.socialLinks?.callPhone || "",
+            youtube: res.data.socialLinks?.youtube || "",
           },
         });
       }
@@ -172,14 +190,17 @@ export default function ContactCMS() {
       errs.mapsLink = "Please enter a valid URL for Google Maps.";
     }
 
-    if (formData.socialLinks.instagram && !isValidUrl(formData.socialLinks.instagram)) {
-      errs.instagram = "Please enter a valid URL for Instagram.";
-    }
     if (formData.socialLinks.facebook && !isValidUrl(formData.socialLinks.facebook)) {
       errs.facebook = "Please enter a valid URL for Facebook.";
     }
+    if (formData.socialLinks.instagram && !isValidUrl(formData.socialLinks.instagram)) {
+      errs.instagram = "Please enter a valid URL for Instagram.";
+    }
     if (formData.socialLinks.whatsapp && !isValidUrl(formData.socialLinks.whatsapp)) {
       errs.whatsapp = "Please enter a valid URL for WhatsApp.";
+    }
+    if (formData.socialLinks.youtube && !isValidUrl(formData.socialLinks.youtube)) {
+      errs.youtube = "Please enter a valid URL for YouTube.";
     }
 
     if (Object.keys(errs).length > 0) {
@@ -195,6 +216,12 @@ export default function ContactCMS() {
     const payload = {
       ...formData,
       mapsLink: cleanMapsLink,
+      timings: {
+        monSat: formData.timings.monSat,
+        monFri: formData.timings.monSat,
+        saturday: formData.timings.monSat,
+        sunday: formData.timings.sunday,
+      },
     };
 
     try {
@@ -355,140 +382,167 @@ export default function ContactCMS() {
 
         </div>
 
-        {/* SECTION B: CLINIC TIMINGS */}
-        <div className="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 space-y-4 shadow-xs">
+        {/* SECTION B: CLINIC HOURS & SOCIAL LINKS */}
+        <div className="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 space-y-6 shadow-xs">
           <div className="border-b border-slate-100 pb-3">
             <h2 className="text-sm font-extrabold text-slate-900 flex items-center gap-2">
               <Clock className="w-4 h-4 text-[#0E2A6D]" />
+              Clinic Hours & Social Links
+            </h2>
+            <p className="text-[11px] text-slate-500 font-normal mt-0.5">
+              Manage clinic working hours and social media & contact button links.
+            </p>
+          </div>
+
+          {/* 1. Working Hours Subsection */}
+          <div className="space-y-3">
+            <h3 className="text-xs font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
+              <Clock className="w-3.5 h-3.5 text-sky-600" />
               Clinic Working Hours
-            </h2>
-          </div>
+            </h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {/* Monday – Friday */}
-            <div>
-              <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
-                Monday – Friday *
-              </label>
-              <input
-                type="text"
-                value={formData.timings.monFri}
-                onChange={(e) => setFormData(prev => ({
-                  ...prev,
-                  timings: { ...prev.timings, monFri: e.target.value }
-                }))}
-                required
-                placeholder="e.g. 9:00 AM – 8:00 PM"
-                className="h-9.5 w-full rounded-xl border border-slate-200 bg-slate-50/60 px-3.5 font-bold text-slate-900 outline-none focus:border-[#0E2A6D] focus:bg-white"
-              />
-            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Monday – Saturday */}
+              <div>
+                <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
+                  Monday – Saturday Working Hours *
+                </label>
+                <input
+                  type="text"
+                  value={formData.timings.monSat}
+                  onChange={(e) => setFormData(prev => ({
+                    ...prev,
+                    timings: { ...prev.timings, monSat: e.target.value }
+                  }))}
+                  required
+                  placeholder="e.g. 9:30 AM – 9:00 PM"
+                  className="h-9.5 w-full rounded-xl border border-slate-200 bg-slate-50/60 px-3.5 font-bold text-slate-900 outline-none focus:border-[#0E2A6D] focus:bg-white"
+                />
+              </div>
 
-            {/* Saturday */}
-            <div>
-              <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
-                Saturday *
-              </label>
-              <input
-                type="text"
-                value={formData.timings.saturday}
-                onChange={(e) => setFormData(prev => ({
-                  ...prev,
-                  timings: { ...prev.timings, saturday: e.target.value }
-                }))}
-                required
-                placeholder="e.g. 9:00 AM – 6:00 PM"
-                className="h-9.5 w-full rounded-xl border border-slate-200 bg-slate-50/60 px-3.5 font-bold text-slate-900 outline-none focus:border-[#0E2A6D] focus:bg-white"
-              />
-            </div>
-
-            {/* Sunday */}
-            <div>
-              <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
-                Sunday *
-              </label>
-              <input
-                type="text"
-                value={formData.timings.sunday}
-                onChange={(e) => setFormData(prev => ({
-                  ...prev,
-                  timings: { ...prev.timings, sunday: e.target.value }
-                }))}
-                required
-                placeholder="e.g. Closed"
-                className="h-9.5 w-full rounded-xl border border-slate-200 bg-slate-50/60 px-3.5 font-bold text-slate-900 outline-none focus:border-[#0E2A6D] focus:bg-white"
-              />
+              {/* Sunday */}
+              <div>
+                <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
+                  Sunday Working Hours *
+                </label>
+                <input
+                  type="text"
+                  value={formData.timings.sunday}
+                  onChange={(e) => setFormData(prev => ({
+                    ...prev,
+                    timings: { ...prev.timings, sunday: e.target.value }
+                  }))}
+                  required
+                  placeholder="e.g. 10:00 AM – 1:30 PM or Closed"
+                  className="h-9.5 w-full rounded-xl border border-slate-200 bg-slate-50/60 px-3.5 font-bold text-slate-900 outline-none focus:border-[#0E2A6D] focus:bg-white"
+                />
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* SECTION C: SOCIAL MEDIA LINKS */}
-        <div className="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 space-y-4 shadow-xs">
-          <div className="border-b border-slate-100 pb-3">
-            <h2 className="text-sm font-extrabold text-slate-900 flex items-center gap-2">
-              <Share2 className="w-4 h-4 text-[#0E2A6D]" />
-              Social Media Links (Optional)
-            </h2>
-          </div>
+          <div className="border-t border-slate-100 pt-5 space-y-3">
+            <h3 className="text-xs font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
+              <Share2 className="w-3.5 h-3.5 text-sky-600" />
+              Social Media & Contact Links (Optional)
+            </h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            
-            {/* Instagram */}
-            <div>
-              <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1 flex items-center gap-1.5">
-                <InstagramIcon className="w-3.5 h-3.5 text-pink-600" />
-                Instagram Link
-              </label>
-              <input
-                type="url"
-                value={formData.socialLinks.instagram}
-                onChange={(e) => setFormData(prev => ({
-                  ...prev,
-                  socialLinks: { ...prev.socialLinks, instagram: e.target.value }
-                }))}
-                placeholder="e.g. https://instagram.com/kavuturudental"
-                className="h-9.5 w-full rounded-xl border border-slate-200 bg-slate-50/60 px-3.5 font-bold text-slate-900 outline-none focus:border-[#0E2A6D] focus:bg-white"
-              />
-              {errors.instagram && <p className="text-[10px] text-red-600 font-bold mt-1">{errors.instagram}</p>}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              
+              {/* Facebook URL */}
+              <div>
+                <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                  <FacebookIcon className="w-3.5 h-3.5 text-blue-600" />
+                  Facebook URL
+                </label>
+                <input
+                  type="url"
+                  value={formData.socialLinks.facebook}
+                  onChange={(e) => setFormData(prev => ({
+                    ...prev,
+                    socialLinks: { ...prev.socialLinks, facebook: e.target.value }
+                  }))}
+                  placeholder="e.g. https://facebook.com/kavuturudental"
+                  className="h-9.5 w-full rounded-xl border border-slate-200 bg-slate-50/60 px-3.5 font-bold text-slate-900 outline-none focus:border-[#0E2A6D] focus:bg-white"
+                />
+                {errors.facebook && <p className="text-[10px] text-red-600 font-bold mt-1">{errors.facebook}</p>}
+              </div>
+
+              {/* Instagram URL */}
+              <div>
+                <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                  <InstagramIcon className="w-3.5 h-3.5 text-pink-600" />
+                  Instagram URL
+                </label>
+                <input
+                  type="url"
+                  value={formData.socialLinks.instagram}
+                  onChange={(e) => setFormData(prev => ({
+                    ...prev,
+                    socialLinks: { ...prev.socialLinks, instagram: e.target.value }
+                  }))}
+                  placeholder="e.g. https://www.instagram.com/kavuturu_dental_clinic/"
+                  className="h-9.5 w-full rounded-xl border border-slate-200 bg-slate-50/60 px-3.5 font-bold text-slate-900 outline-none focus:border-[#0E2A6D] focus:bg-white"
+                />
+                {errors.instagram && <p className="text-[10px] text-red-600 font-bold mt-1">{errors.instagram}</p>}
+              </div>
+
+              {/* WhatsApp URL */}
+              <div>
+                <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                  <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
+                  WhatsApp URL
+                </label>
+                <input
+                  type="url"
+                  value={formData.socialLinks.whatsapp}
+                  onChange={(e) => setFormData(prev => ({
+                    ...prev,
+                    socialLinks: { ...prev.socialLinks, whatsapp: e.target.value }
+                  }))}
+                  placeholder="e.g. https://wa.me/918309479901"
+                  className="h-9.5 w-full rounded-xl border border-slate-200 bg-slate-50/60 px-3.5 font-bold text-slate-900 outline-none focus:border-[#0E2A6D] focus:bg-white"
+                />
+                {errors.whatsapp && <p className="text-[10px] text-red-600 font-bold mt-1">{errors.whatsapp}</p>}
+              </div>
+
+              {/* Call Button (Phone Number) */}
+              <div>
+                <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                  <Phone className="w-3.5 h-3.5 text-sky-600" />
+                  Call Button (Phone Number)
+                </label>
+                <input
+                  type="text"
+                  value={formData.socialLinks.callPhone}
+                  onChange={(e) => setFormData(prev => ({
+                    ...prev,
+                    socialLinks: { ...prev.socialLinks, callPhone: e.target.value }
+                  }))}
+                  placeholder="e.g. +91 8309479901"
+                  className="h-9.5 w-full rounded-xl border border-slate-200 bg-slate-50/60 px-3.5 font-bold text-slate-900 outline-none focus:border-[#0E2A6D] focus:bg-white"
+                />
+              </div>
+
+              {/* YouTube URL */}
+              <div>
+                <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                  <YoutubeIcon className="w-3.5 h-3.5 text-red-600" />
+                  YouTube URL
+                </label>
+                <input
+                  type="url"
+                  value={formData.socialLinks.youtube}
+                  onChange={(e) => setFormData(prev => ({
+                    ...prev,
+                    socialLinks: { ...prev.socialLinks, youtube: e.target.value }
+                  }))}
+                  placeholder="e.g. https://youtube.com/@kavuturudental"
+                  className="h-9.5 w-full rounded-xl border border-slate-200 bg-slate-50/60 px-3.5 font-bold text-slate-900 outline-none focus:border-[#0E2A6D] focus:bg-white"
+                />
+                {errors.youtube && <p className="text-[10px] text-red-600 font-bold mt-1">{errors.youtube}</p>}
+              </div>
+
             </div>
-
-            {/* Facebook */}
-            <div>
-              <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1 flex items-center gap-1.5">
-                <FacebookIcon className="w-3.5 h-3.5 text-blue-600" />
-                Facebook Link
-              </label>
-              <input
-                type="url"
-                value={formData.socialLinks.facebook}
-                onChange={(e) => setFormData(prev => ({
-                  ...prev,
-                  socialLinks: { ...prev.socialLinks, facebook: e.target.value }
-                }))}
-                placeholder="e.g. https://facebook.com/kavuturudental"
-                className="h-9.5 w-full rounded-xl border border-slate-200 bg-slate-50/60 px-3.5 font-bold text-slate-900 outline-none focus:border-[#0E2A6D] focus:bg-white"
-              />
-              {errors.facebook && <p className="text-[10px] text-red-600 font-bold mt-1">{errors.facebook}</p>}
-            </div>
-
-            {/* WhatsApp */}
-            <div>
-              <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1 flex items-center gap-1.5">
-                <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
-                WhatsApp Link
-              </label>
-              <input
-                type="url"
-                value={formData.socialLinks.whatsapp}
-                onChange={(e) => setFormData(prev => ({
-                  ...prev,
-                  socialLinks: { ...prev.socialLinks, whatsapp: e.target.value }
-                }))}
-                placeholder="e.g. https://wa.me/919876543210"
-                className="h-9.5 w-full rounded-xl border border-slate-200 bg-slate-50/60 px-3.5 font-bold text-slate-900 outline-none focus:border-[#0E2A6D] focus:bg-white"
-              />
-              {errors.whatsapp && <p className="text-[10px] text-red-600 font-bold mt-1">{errors.whatsapp}</p>}
-            </div>
-
           </div>
         </div>
 

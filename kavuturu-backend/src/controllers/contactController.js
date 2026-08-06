@@ -9,14 +9,17 @@ const DEFAULT_CONTACT = {
   email: "contact@kavuturudental.com",
   mapsLink: "https://maps.google.com/?q=Kavuturu+Dental+Clinic+Tirupati",
   timings: {
-    monFri: "9:00 AM – 8:00 PM",
-    saturday: "9:00 AM – 6:00 PM",
-    sunday: "Closed",
+    monSat: "9:30 AM – 9:00 PM",
+    monFri: "9:30 AM – 9:00 PM",
+    saturday: "9:30 AM – 9:00 PM",
+    sunday: "10:00 AM – 1:30 PM",
   },
   socialLinks: {
-    instagram: "https://instagram.com/kavuturudental",
-    facebook: "https://facebook.com/kavuturudental",
-    whatsapp: "https://wa.me/919876543210",
+    facebook: "",
+    instagram: "https://www.instagram.com/kavuturu_dental_clinic/",
+    whatsapp: "https://wa.me/918309479901",
+    callPhone: "+91 8309479901",
+    youtube: "",
   },
 };
 
@@ -138,17 +141,17 @@ const updateContact = async (req, res, next) => {
       });
     }
 
-    if (socialLinks?.instagram && !isValidUrl(socialLinks.instagram)) {
-      return res.status(400).json({
-        success: false,
-        message: "Instagram Link must be a valid URL.",
-      });
-    }
-
     if (socialLinks?.facebook && !isValidUrl(socialLinks.facebook)) {
       return res.status(400).json({
         success: false,
         message: "Facebook Link must be a valid URL.",
+      });
+    }
+
+    if (socialLinks?.instagram && !isValidUrl(socialLinks.instagram)) {
+      return res.status(400).json({
+        success: false,
+        message: "Instagram Link must be a valid URL.",
       });
     }
 
@@ -159,6 +162,15 @@ const updateContact = async (req, res, next) => {
       });
     }
 
+    if (socialLinks?.youtube && !isValidUrl(socialLinks.youtube)) {
+      return res.status(400).json({
+        success: false,
+        message: "YouTube Link must be a valid URL.",
+      });
+    }
+
+    const monSatValue = timings?.monSat || timings?.monFri || "9:30 AM – 9:00 PM";
+
     const payload = {
       address: address.trim(),
       primaryPhone: primaryPhone.trim(),
@@ -166,14 +178,17 @@ const updateContact = async (req, res, next) => {
       email: email.trim().toLowerCase(),
       mapsLink: cleanedMapsLink,
       timings: {
-        monFri: timings?.monFri || "9:00 AM – 8:00 PM",
-        saturday: timings?.saturday || "9:00 AM – 6:00 PM",
-        sunday: timings?.sunday || "Closed",
+        monSat: monSatValue,
+        monFri: monSatValue,
+        saturday: monSatValue,
+        sunday: timings?.sunday || "10:00 AM – 1:30 PM",
       },
       socialLinks: {
-        instagram: socialLinks?.instagram ? socialLinks.instagram.trim() : "",
         facebook: socialLinks?.facebook ? socialLinks.facebook.trim() : "",
+        instagram: socialLinks?.instagram ? socialLinks.instagram.trim() : "",
         whatsapp: socialLinks?.whatsapp ? socialLinks.whatsapp.trim() : "",
+        callPhone: socialLinks?.callPhone ? socialLinks.callPhone.trim() : "",
+        youtube: socialLinks?.youtube ? socialLinks.youtube.trim() : "",
       },
     };
 

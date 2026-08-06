@@ -32,34 +32,47 @@ const contactSchema = new mongoose.Schema(
             trim: true,
         },
         timings: {
-            monFri: {
+            monSat: {
                 type: String,
                 required: true,
-                default: "9:00 AM – 8:00 PM",
+                default: "9:30 AM – 9:00 PM",
+            },
+            monFri: {
+                type: String,
+                default: "9:30 AM – 9:00 PM",
             },
             saturday: {
                 type: String,
-                required: true,
-                default: "9:00 AM – 6:00 PM",
+                default: "9:30 AM – 9:00 PM",
             },
             sunday: {
                 type: String,
                 required: true,
-                default: "Closed",
+                default: "10:00 AM – 1:30 PM",
             },
         },
         socialLinks: {
-            instagram: {
-                type: String,
-                trim: true,
-                default: "",
-            },
             facebook: {
                 type: String,
                 trim: true,
                 default: "",
             },
+            instagram: {
+                type: String,
+                trim: true,
+                default: "",
+            },
             whatsapp: {
+                type: String,
+                trim: true,
+                default: "",
+            },
+            callPhone: {
+                type: String,
+                trim: true,
+                default: "",
+            },
+            youtube: {
                 type: String,
                 trim: true,
                 default: "",

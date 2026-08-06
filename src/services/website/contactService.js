@@ -38,6 +38,11 @@ export const updateContact = async (payload) => {
     },
   });
 
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new CustomEvent("STATE_UPDATED", { detail: { source: "CMS_CONTACT_UPDATE" } }));
+    window.dispatchEvent(new CustomEvent("CONTACT_UPDATED", { detail: response.data?.data }));
+  }
+
   return response.data;
 };
 
