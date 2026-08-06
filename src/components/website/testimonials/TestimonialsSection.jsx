@@ -80,7 +80,7 @@ const TestimonialsSection = () => {
         <div className="absolute -right-20 bottom-20 h-80 w-80 rounded-full bg-emerald-100/30 blur-3xl" />
       </div>
 
-      <div className="mx-auto max-w-[1280px] px-5 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         
         {/* Header matching Clinic Showcase design */}
         <div className="mb-10">

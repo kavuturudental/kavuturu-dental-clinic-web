@@ -33,7 +33,7 @@ const BeforeAfterSection = () => {
 
   return (
     <section id="before-after" className="relative overflow-hidden bg-[#FCFCFD] py-12 sm:py-16 lg:py-20">
-      <div className="mx-auto max-w-[1280px] px-5 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         
         {/* Section Header matching Clinic Showcase design */}
         <div className="mb-10">

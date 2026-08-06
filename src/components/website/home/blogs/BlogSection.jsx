@@ -55,7 +55,7 @@ const BlogSection = () => {
       <div className="absolute -top-24 -left-24 h-72 w-72 rounded-full bg-blue-100/30 blur-3xl" />
       <div className="absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-emerald-100/30 blur-3xl" />
 
-      <div className="relative mx-auto max-w-[1280px] px-5 sm:px-6 lg:px-8">
+      <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         {/* Section Header matching Clinic Showcase design */}
         <div className="mb-10">
           <div className="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-sky-50 px-4 py-1.5 mb-3.5 shadow-sm">

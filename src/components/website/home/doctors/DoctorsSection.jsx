@@ -11,7 +11,7 @@ const DoctorsSection = () => {
       className="bg-[#FCFCFD] py-12 sm:py-16 lg:py-20"
       aria-labelledby="doctor-section-heading"
     >
-      <div className="mx-auto max-w-[1280px] px-5 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         {/* Section Header matching Clinic Showcase design */}
         <div className="mb-10">
           <div className="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-sky-50 px-4 py-1.5 mb-3.5 shadow-sm">

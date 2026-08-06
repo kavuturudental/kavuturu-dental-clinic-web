@@ -47,7 +47,7 @@ function DesktopHeroContent() {
           h-full
           max-w-[1280px]
           items-center
-          px-6
+          px-4 sm:px-6 lg:px-8
         "
       >
         <div

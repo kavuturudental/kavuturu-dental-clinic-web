@@ -12,7 +12,7 @@ export const ContactSection = () => {
       className="bg-[#FCFCFD] py-12 sm:py-16 lg:py-20"
       aria-labelledby="contact-section-heading"
     >
-      <div className="mx-auto max-w-[1280px] px-5 sm:px-6 lg:px-8 space-y-8">
+      <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 space-y-8">
         
         {/* Section Header */}
         <ContactHeader />

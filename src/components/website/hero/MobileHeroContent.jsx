@@ -33,7 +33,7 @@ function MobileHeroContent() {
   return (
     <div
       className="
-        px-5
+        px-4 sm:px-6
         pt-2
         pb-10
         lg:hidden

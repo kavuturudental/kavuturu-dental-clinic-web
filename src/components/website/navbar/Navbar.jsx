@@ -96,7 +96,7 @@ function Navbar() {
           top-3 sm:top-4
           inset-x-0
           z-50
-          px-3 sm:px-6
+          px-4 sm:px-6 lg:px-8
           transition-all
           duration-300
           pointer-events-none
@@ -124,9 +124,9 @@ function Navbar() {
             className="
               hidden
               h-[76px]
-              grid-cols-[280px_1fr_200px]
+              grid-cols-[260px_1fr_200px]
               items-center
-              px-6
+              px-6 lg:px-8
               lg:grid
             "
           >
@@ -136,7 +136,7 @@ function Navbar() {
             </div>
 
             {/* Navigation Links */}
-            <div className="flex justify-center -translate-x-4">
+            <div className="flex justify-center">
               <NavLinks activeSection={activeSection} setActiveSection={setActiveSection} />
             </div>
 

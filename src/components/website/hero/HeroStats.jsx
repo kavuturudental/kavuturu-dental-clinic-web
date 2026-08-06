@@ -67,7 +67,7 @@ function HeroStats() {
           max-w-[1280px]
           px-4
           sm:px-6
-          lg:px-6
+          lg:px-8
           w-full
           max-w-full
         "

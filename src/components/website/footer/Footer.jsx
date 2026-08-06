@@ -53,7 +53,7 @@ const Footer = () => {
 
   return (
     <footer className="bg-[#0B1D3F] rounded-t-[44px] shadow-[0_-20px_50px_rgba(11,29,63,0.15)]">
-      <div className="mx-auto max-w-[1280px] px-5 sm:px-6 lg:px-8 pt-18 pb-8">
+      <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 pt-18 pb-8">
 
         {/* Main 4‑column grid */}
         <div className="grid gap-y-12 gap-x-12 md:gap-x-16 lg:gap-x-20 xl:gap-x-24 sm:grid-cols-2 lg:grid-cols-4">

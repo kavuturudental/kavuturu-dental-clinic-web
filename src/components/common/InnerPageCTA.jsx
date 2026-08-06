@@ -5,7 +5,7 @@ import ctaData from "../../data/website/ctaData";
 const InnerPageCTA = () => {
   return (
     <section className="bg-[#FCFCFD] py-12 sm:py-16 lg:py-20">
-      <div className="mx-auto max-w-[1280px] px-5 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         <div className="relative overflow-hidden rounded-[36px] bg-gradient-to-br from-[#0E2A6D] via-[#0B235A] to-[#07173D] px-6 py-12 sm:px-12 md:py-16 text-center md:text-left shadow-[0_25px_60px_rgba(14,42,109,0.18)]">
           {/* Background Ambient Glows */}
           <div className="absolute -top-32 -left-32 h-80 w-80 rounded-full bg-white/10 blur-3xl pointer-events-none" />
