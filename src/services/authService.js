@@ -1,27 +1,6 @@
 // src/services/authService.js
 
-import axios from "axios";
-
-const API = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000/api",
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
-
-/* ==========================================================
-   Request Interceptor
-========================================================== */
-
-API.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
-
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-
-  return config;
-});
+import api from "./api";
 
 /* ==========================================================
    Auth Service (Doctor CMS Only)
@@ -33,7 +12,7 @@ const authService = {
    */
   async login(email, password) {
     try {
-      const response = await API.post("/auth/login", {
+      const response = await api.post("/auth/login", {
         email,
         password,
       });
@@ -117,7 +96,7 @@ const authService = {
    * Request password reset email link
    */
   async forgotPassword(email) {
-    const response = await API.post("/auth/forgot-password", { email });
+    const response = await api.post("/auth/forgot-password", { email });
     return response.data;
   },
 
@@ -125,7 +104,7 @@ const authService = {
    * Verify reset token status
    */
   async verifyResetToken(token) {
-    const response = await API.get(`/auth/verify-reset-token/${token}`);
+    const response = await api.get(`/auth/verify-reset-token/${token}`);
     return response.data;
   },
 
@@ -133,7 +112,7 @@ const authService = {
    * Reset password with token
    */
   async resetPassword(token, password, confirmPassword) {
-    const response = await API.post(`/auth/reset-password/${token}`, {
+    const response = await api.post(`/auth/reset-password/${token}`, {
       password,
       confirmPassword,
     });
@@ -144,7 +123,7 @@ const authService = {
    * Update logged-in user profile
    */
   async updateProfile(data) {
-    const response = await API.put("/auth/profile", data);
+    const response = await api.put("/auth/profile", data);
     return response.data;
   },
 
@@ -152,7 +131,7 @@ const authService = {
    * Fetch authenticated user profile from backend (single source of truth)
    */
   async getProfile() {
-    const response = await API.get("/auth/profile");
+    const response = await api.get("/auth/profile");
     return response.data;
   },
 };

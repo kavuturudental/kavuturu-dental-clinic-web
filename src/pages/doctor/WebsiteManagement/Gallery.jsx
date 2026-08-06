@@ -115,12 +115,6 @@ export default function GalleryCMS() {
   };
 
   const handleOpenAddModal = () => {
-    // 15 Image Capacity Limit Check
-    if (images.length >= 15) {
-      setIsLimitModalOpen(true);
-      return;
-    }
-
     setEditingItem(null);
     setFormData({
       title: "",
@@ -220,7 +214,7 @@ export default function GalleryCMS() {
       {/* TOP ACTION ROW */}
       <div className="flex items-center justify-between bg-white p-3.5 rounded-2xl border border-slate-200/80 shadow-2xs">
         <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-slate-50 text-slate-700 border border-slate-200">
-          Capacity: <strong className="text-[#2563EB]">{images.length} / 15</strong> Images
+          Total Gallery Images: <strong className="text-[#2563EB]">{images.length}</strong>
         </span>
 
         <button

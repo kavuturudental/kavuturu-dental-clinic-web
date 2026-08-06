@@ -4,7 +4,8 @@ import axios from "axios";
 import websiteService from "../websiteService";
 import { heroData } from "../../data/website/heroData";
 
-const API_BASE_URL = "http://localhost:5000/api/website/hero";
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+const API_BASE_URL = `${BASE_URL.replace(/\/$/, "")}/website/hero`;
 
 /**
  * Get Hero Content from Backend API (Fallback to Local/Mock if Offline)

@@ -1,31 +1,20 @@
 // src/services/doctorAccountService.js
 
-import axios from "axios";
-
-const API_BASE_URL = "http://localhost:5000/api/auth";
-
-const getAuthHeaders = () => {
-  const token = localStorage.getItem("token");
-  return {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-};
+import api from "./api";
 
 export const doctorAccountService = {
   getProfile: async () => {
-    const res = await axios.get(`${API_BASE_URL}/profile`, getAuthHeaders());
+    const res = await api.get("/auth/profile");
     return res.data;
   },
 
   updateProfile: async (payload) => {
-    const res = await axios.put(`${API_BASE_URL}/profile`, payload, getAuthHeaders());
+    const res = await api.put("/auth/profile", payload);
     return res.data;
   },
 
   changePassword: async (payload) => {
-    const res = await axios.put(`${API_BASE_URL}/change-password`, payload, getAuthHeaders());
+    const res = await api.put("/auth/change-password", payload);
     return res.data;
   },
 };

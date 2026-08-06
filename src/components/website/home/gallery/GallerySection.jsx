@@ -48,7 +48,7 @@ const GallerySection = () => {
     fetchHomepageGallery();
   }, []);
 
-  const displayList = galleryImages.length > 0 ? galleryImages : staticGalleryData.slice(0, 8);
+  const displayList = (galleryImages.length > 0 ? galleryImages : staticGalleryData).slice(0, 8);
   // Duplicate gallery images for seamless continuous loop
   const duplicatedImages = [...displayList, ...displayList];
 
@@ -65,33 +65,23 @@ const GallerySection = () => {
       <style dangerouslySetInnerHTML={{ __html: marqueeStyle }} />
 
       <div className="mx-auto max-w-[1280px] px-5 sm:px-6 lg:px-8">
-        {/* Section Header with integrated "View Gallery" button */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
-          <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-sky-50 px-4 py-1.5 mb-3.5 shadow-sm">
-              <ImageIcon className="w-3.5 h-3.5 text-sky-600" />
-              <span className="text-xs font-bold text-sky-700 uppercase tracking-wider">
-                Clinic Showcase
-              </span>
-            </div>
-            <h2 className="text-3xl font-bold tracking-tight text-[#0E2A6D] sm:text-4xl lg:text-5xl font-outfit">
-              Explore Our Modern <span className="text-[#0E2A6D]">Dental Clinic</span>
-            </h2>
-            <p className="mt-3 text-base sm:text-lg text-slate-600 max-w-xl leading-relaxed">
-              A quick glimpse inside our state-of-the-art treatment facilities and welcoming environment in Tirupati.
-            </p>
+        {/* Section Header matching Clinic Showcase design */}
+        <div className="mb-10">
+          <div className="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-sky-50 px-4 py-1.5 mb-3.5 shadow-sm">
+            <ImageIcon className="w-3.5 h-3.5 text-sky-600" />
+            <span className="text-xs font-bold text-sky-700 uppercase tracking-wider">
+              Clinic Showcase
+            </span>
           </div>
-
-          <Link
-            to="/gallery"
-            className="group hidden md:inline-flex items-center gap-2.5 rounded-xl border border-[#0E2A6D]/25 bg-white/90 backdrop-blur-sm px-6 py-3 text-xs sm:text-sm font-bold text-[#0E2A6D] shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#0E2A6D] hover:bg-[#0E2A6D] hover:text-white hover:shadow-md cursor-pointer self-start md:self-auto"
-          >
-            <span>View Full Gallery</span>
-            <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-          </Link>
+          <h2 className="text-3xl font-bold tracking-tight text-[#0E2A6D] sm:text-4xl lg:text-5xl font-outfit">
+            Explore Our Modern <span className="text-[#0E2A6D]">Dental Clinic</span>
+          </h2>
+          <p className="mt-3 text-base sm:text-lg text-slate-600 max-w-xl leading-relaxed">
+            A quick glimpse inside our state-of-the-art treatment facilities and welcoming environment in Tirupati.
+          </p>
         </div>
 
-        {/* Horizontal Marquee / Continuous Scrolling Image Strip */}
+        {/* Horizontal Marquee / Continuous Scrolling Image Strip (Max 8 Images) */}
         <div className="relative w-full overflow-hidden rounded-3xl py-2">
           {/* Subtle edge shadow fades */}
           <div className="absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-white to-transparent pointer-events-none md:w-20" />
@@ -120,13 +110,13 @@ const GallerySection = () => {
           </div>
         </div>
 
-        {/* Mobile Section Bottom CTA */}
-        <div className="mt-10 flex justify-center md:hidden">
+        {/* Section Bottom CTA (View Gallery) */}
+        <div className="mt-12 flex justify-center">
           <Link
             to="/gallery"
-            className="group inline-flex items-center gap-2.5 rounded-xl border border-[#0E2A6D]/25 bg-white/90 backdrop-blur-sm px-6 py-3 text-xs font-bold text-[#0E2A6D] shadow-sm transition-all duration-300 hover:border-[#0E2A6D] hover:bg-[#0E2A6D] hover:text-white hover:shadow-md cursor-pointer"
+            className="group inline-flex items-center gap-2.5 rounded-xl border border-[#0E2A6D]/25 bg-white/90 backdrop-blur-sm px-6 py-3 text-xs sm:text-sm font-bold text-[#0E2A6D] shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#0E2A6D] hover:bg-[#0E2A6D] hover:text-white hover:shadow-md cursor-pointer"
           >
-            <span>View Full Gallery</span>
+            <span>View Gallery</span>
             <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
         </div>

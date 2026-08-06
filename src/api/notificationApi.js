@@ -1,29 +1,13 @@
 // src/api/notificationApi.js
 
-import axios from "axios";
-
-const API = axios.create({
-  baseURL: "http://localhost:5000/api",
-  withCredentials: true,
-});
-
-// Automatically attach JWT token
-API.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
-
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-
-  return config;
-});
+import api from "../services/api";
 
 /**
  * Get All Notifications
  */
 export const getNotifications = async (params = {}) => {
   try {
-    const response = await API.get("/notifications", { params });
+    const response = await api.get("/notifications", { params });
     return response.data;
   } catch (err) {
     console.error("Failed to fetch notifications from endpoint:", err);
@@ -36,7 +20,7 @@ export const getNotifications = async (params = {}) => {
  */
 export const getUnreadNotificationCount = async () => {
   try {
-    const response = await API.get("/notifications/unread-count");
+    const response = await api.get("/notifications/unread-count");
     return response.data;
   } catch (err) {
     console.error("Failed to fetch unread count:", err);
@@ -49,12 +33,12 @@ export const getUnreadNotificationCount = async () => {
  */
 export const markNotificationAsRead = async (id) => {
   try {
-    const response = await API.patch(`/notifications/${id}/read`);
+    const response = await api.patch(`/notifications/${id}/read`);
     return response.data;
   } catch (err) {
     // Retry with PUT if PATCH fails
     try {
-      const response = await API.put(`/notifications/${id}/read`);
+      const response = await api.put(`/notifications/${id}/read`);
       return response.data;
     } catch (putErr) {
       console.error("Failed to mark notification as read:", putErr);
@@ -68,11 +52,11 @@ export const markNotificationAsRead = async (id) => {
  */
 export const markAllNotificationsAsRead = async () => {
   try {
-    const response = await API.patch("/notifications/read-all");
+    const response = await api.patch("/notifications/read-all");
     return response.data;
   } catch (err) {
     try {
-      const response = await API.put("/notifications/read-all");
+      const response = await api.put("/notifications/read-all");
       return response.data;
     } catch (putErr) {
       console.error("Failed to mark all notifications as read:", putErr);
@@ -86,7 +70,7 @@ export const markAllNotificationsAsRead = async () => {
  */
 export const deleteNotification = async (id) => {
   try {
-    const response = await API.delete(`/notifications/${id}`);
+    const response = await api.delete(`/notifications/${id}`);
     return response.data;
   } catch (err) {
     console.error("Failed to delete notification:", err);

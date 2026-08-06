@@ -57,29 +57,19 @@ const BlogSection = () => {
 
       <div className="relative mx-auto max-w-[1280px] px-5 sm:px-6 lg:px-8">
         {/* Section Header matching Clinic Showcase design */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
-          <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-sky-50 px-4 py-1.5 mb-3.5 shadow-sm">
-              <BookOpen className="w-3.5 h-3.5 text-sky-600" />
-              <span className="text-xs font-bold text-sky-700 uppercase tracking-wider">
-                Latest Articles
-              </span>
-            </div>
-            <h2 className="text-3xl font-bold tracking-tight text-[#0E2A6D] sm:text-4xl lg:text-5xl font-outfit">
-              Expert Tips for a <span className="text-[#0E2A6D]">Healthier Smile</span>
-            </h2>
-            <p className="mt-3 text-base sm:text-lg text-slate-600 max-w-xl leading-relaxed">
-              Stay informed with expert advice, treatment guides, oral hygiene tips, and updates from Kavuturu Dental Clinic.
-            </p>
+        <div className="mb-10">
+          <div className="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-sky-50 px-4 py-1.5 mb-3.5 shadow-sm">
+            <BookOpen className="w-3.5 h-3.5 text-sky-600" />
+            <span className="text-xs font-bold text-sky-700 uppercase tracking-wider">
+              Latest Articles
+            </span>
           </div>
-
-          <Link
-            to="/blogs"
-            className="group hidden md:inline-flex items-center gap-2.5 rounded-xl border border-[#0E2A6D]/25 bg-white/90 backdrop-blur-sm px-6 py-3 text-xs sm:text-sm font-bold text-[#0E2A6D] shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#0E2A6D] hover:bg-[#0E2A6D] hover:text-white hover:shadow-md cursor-pointer self-start md:self-auto"
-          >
-            <span>View All Blogs</span>
-            <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-          </Link>
+          <h2 className="text-3xl font-bold tracking-tight text-[#0E2A6D] sm:text-4xl lg:text-5xl font-outfit">
+            Expert Tips for a <span className="text-[#0E2A6D]">Healthier Smile</span>
+          </h2>
+          <p className="mt-3 text-base sm:text-lg text-slate-600 max-w-xl leading-relaxed">
+            Stay informed with expert advice, treatment guides, oral hygiene tips, and updates from Kavuturu Dental Clinic.
+          </p>
         </div>
 
         {/* Dynamic Grid Alignment based on 1, 2, or 3 blogs */}
@@ -100,11 +90,11 @@ const BlogSection = () => {
           ))}
         </div>
 
-        {/* Mobile Section Bottom CTA */}
-        <div className="mt-10 flex justify-center md:hidden">
+        {/* Section Bottom CTA (View All Blogs) */}
+        <div className="mt-12 flex justify-center">
           <Link
             to="/blogs"
-            className="group inline-flex items-center gap-2.5 rounded-xl border border-[#0E2A6D]/25 bg-white/90 backdrop-blur-sm px-6 py-3 text-xs font-bold text-[#0E2A6D] shadow-sm transition-all duration-300 hover:border-[#0E2A6D] hover:bg-[#0E2A6D] hover:text-white hover:shadow-md cursor-pointer"
+            className="group inline-flex items-center gap-2.5 rounded-xl border border-[#0E2A6D]/25 bg-white/90 backdrop-blur-sm px-6 py-3 text-xs sm:text-sm font-bold text-[#0E2A6D] shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#0E2A6D] hover:bg-[#0E2A6D] hover:text-white hover:shadow-md cursor-pointer"
           >
             <span>View All Blogs</span>
             <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />

@@ -1,19 +1,6 @@
 // src/api/insightsApi.js
 
-import axios from "axios";
-
-const API = axios.create({
-  baseURL: "http://localhost:5000/api",
-  withCredentials: true,
-});
-
-API.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
+import api from "../services/api";
 
 /**
  * Get Comprehensive Analytics Insights
@@ -21,11 +8,11 @@ API.interceptors.request.use((config) => {
  */
 export const getInsightsData = async (params = {}) => {
   try {
-    const response = await API.get("/dashboard/insights", { params });
+    const response = await api.get("/dashboard/insights", { params });
     return response.data;
   } catch (err) {
     try {
-      const response = await API.get("/doctor/appointment-management/insights", { params });
+      const response = await api.get("/doctor/appointment-management/insights", { params });
       return response.data;
     } catch (fallbackErr) {
       console.error("Failed to fetch insights analytics:", fallbackErr);

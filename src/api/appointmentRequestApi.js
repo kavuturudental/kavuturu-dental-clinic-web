@@ -1,25 +1,9 @@
 // src/api/appointmentRequestApi.js
 
-import axios from "axios";
+import api from "../services/api";
 
-const API = axios.create({
-  baseURL: "http://localhost:5000/api",
-  withCredentials: true,
-});
-
-// Automatically attach JWT token
-API.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
-
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-
-  return config;
-});
-
-// Response interceptor to handle 401 Stale/Invalid Token (e.g. User not found after DB reset)
-API.interceptors.response.use(
+// Response interceptor to handle 401 Stale/Invalid Token
+api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
@@ -43,13 +27,13 @@ API.interceptors.response.use(
  */
 export const getAppointmentRequests = async (params = {}) => {
   try {
-    const response = await API.get("/appointment-requests", { params });
+    const response = await api.get("/appointment-requests", { params });
     return response.data;
   } catch (err) {
     if (err.response?.status === 401) {
       throw err;
     }
-    const response = await API.get("/appointments", { params: { status: "Pending", ...params } });
+    const response = await api.get("/appointments", { params: { status: "Pending", ...params } });
     return response.data;
   }
 };
@@ -59,13 +43,13 @@ export const getAppointmentRequests = async (params = {}) => {
  */
 export const getAppointmentRequestById = async (id) => {
   try {
-    const response = await API.get(`/appointment-requests/${id}`);
+    const response = await api.get(`/appointment-requests/${id}`);
     return response.data;
   } catch (err) {
     if (err.response?.status === 401) {
       throw err;
     }
-    const response = await API.get(`/appointments/${id}`);
+    const response = await api.get(`/appointments/${id}`);
     return response.data;
   }
 };
@@ -75,13 +59,13 @@ export const getAppointmentRequestById = async (id) => {
  */
 export const approveAppointmentRequest = async (id) => {
   try {
-    const response = await API.patch(`/appointment-requests/${id}/approve`);
+    const response = await api.patch(`/appointment-requests/${id}/approve`);
     return response.data;
   } catch (err) {
     if (err.response?.status === 401) {
       throw err;
     }
-    const response = await API.patch(`/appointments/${id}/status`, { status: "Accepted" });
+    const response = await api.patch(`/appointments/${id}/status`, { status: "Accepted" });
     return response.data;
   }
 };
@@ -91,13 +75,13 @@ export const approveAppointmentRequest = async (id) => {
  */
 export const rejectAppointmentRequest = async (id, reason) => {
   try {
-    const response = await API.patch(`/appointment-requests/${id}/reject`, { reason });
+    const response = await api.patch(`/appointment-requests/${id}/reject`, { reason });
     return response.data;
   } catch (err) {
     if (err.response?.status === 401) {
       throw err;
     }
-    const response = await API.patch(`/appointments/${id}/status`, { status: "Cancelled", reason });
+    const response = await api.patch(`/appointments/${id}/status`, { status: "Cancelled", reason });
     return response.data;
   }
 };
@@ -107,13 +91,13 @@ export const rejectAppointmentRequest = async (id, reason) => {
  */
 export const rescheduleAppointmentRequest = async (id, newDate, newTime) => {
   try {
-    const response = await API.patch(`/appointment-requests/${id}/reschedule`, { newDate, newTime });
+    const response = await api.patch(`/appointment-requests/${id}/reschedule`, { newDate, newTime });
     return response.data;
   } catch (err) {
     if (err.response?.status === 401) {
       throw err;
     }
-    const response = await API.put(`/appointments/${id}`, { date: newDate, time: newTime });
+    const response = await api.put(`/appointments/${id}`, { date: newDate, time: newTime });
     return response.data;
   }
 };

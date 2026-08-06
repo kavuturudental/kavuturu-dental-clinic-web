@@ -2,7 +2,8 @@
 
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:5000/api/website/before-after";
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+const API_BASE_URL = `${BASE_URL.replace(/\/$/, "")}/website/before-after`;
 
 /**
  * Get Before & After Cases (Optionally pass { homepage: "true" })

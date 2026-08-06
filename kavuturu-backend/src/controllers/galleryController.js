@@ -54,7 +54,7 @@ const isWebpImage = (str) => {
 };
 
 /**
- * @desc    Get Gallery Images (Homepage max 8, default max 15, sorted newest first)
+ * @desc    Get Gallery Images (Homepage max 8, unlimited for full gallery)
  * @route   GET /api/website/gallery
  * @access  Public
  */
@@ -62,21 +62,21 @@ const getGalleryImages = async (req, res, next) => {
     try {
         const { homepage } = req.query;
         let query = { status: "Active" };
-        let limit = homepage === "true" ? 8 : 15;
 
         if (homepage === "true") {
             query.showOnHomepage = true;
         }
 
-        let images = await Gallery.find(query)
-            .sort({ createdAt: -1 })
-            .limit(limit);
+        let imagesQuery = Gallery.find(query).sort({ createdAt: -1 });
+        if (homepage === "true") {
+            imagesQuery = imagesQuery.limit(8);
+        }
+
+        let images = await imagesQuery;
 
         if (images.length === 0 && !homepage) {
             await Gallery.insertMany(DEFAULT_GALLERY_IMAGES);
-            images = await Gallery.find(query)
-                .sort({ createdAt: -1 })
-                .limit(limit);
+            images = await Gallery.find(query).sort({ createdAt: -1 });
         }
 
         return res.status(200).json({
@@ -90,21 +90,12 @@ const getGalleryImages = async (req, res, next) => {
 };
 
 /**
- * @desc    Create New Gallery Image (Max 15 limit check)
+ * @desc    Create New Gallery Image
  * @route   POST /api/website/gallery
  * @access  Private (Doctor Only)
  */
 const createGalleryImage = async (req, res, next) => {
     try {
-        // Enforce 15 gallery image maximum capacity limit
-        const totalCount = await Gallery.countDocuments();
-        if (totalCount >= 15) {
-            return res.status(400).json({
-                success: false,
-                code: "LIMIT_REACHED",
-                message: "You have reached the maximum limit of 15 gallery images. Please delete an existing image before adding a new one.",
-            });
-        }
 
         const {
             title,

@@ -62,7 +62,8 @@ const TestimonialsSection = () => {
     return null;
   }
 
-  const duplicatedReviews = [...reviewsList, ...reviewsList];
+  const displayReviews = reviewsList.slice(0, 8);
+  const duplicatedReviews = [...displayReviews, ...displayReviews];
 
   return (
     <section
@@ -82,35 +83,25 @@ const TestimonialsSection = () => {
       <div className="mx-auto max-w-[1280px] px-5 sm:px-6 lg:px-8">
         
         {/* Header matching Clinic Showcase design */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
-          <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-sky-50 px-4 py-1.5 mb-3.5 shadow-sm">
-              <MessageSquare className="w-3.5 h-3.5 text-sky-600" />
-              <span className="text-xs font-bold text-sky-700 uppercase tracking-wider">
-                Patient Stories
-              </span>
-            </div>
-            <h2
-              id="testimonials-heading"
-              className="text-3xl font-bold tracking-tight text-[#0E2A6D] sm:text-4xl lg:text-5xl font-outfit"
-            >
-              Real Stories, Real Smiles
-            </h2>
-            <p className="mt-3 text-base sm:text-lg text-slate-600 max-w-xl leading-relaxed">
-              Read genuine experiences shared by patients who trusted Kavuturu Dental Clinic for advanced, comfortable, and personalized dental care.
-            </p>
+        <div className="mb-10">
+          <div className="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-sky-50 px-4 py-1.5 mb-3.5 shadow-sm">
+            <MessageSquare className="w-3.5 h-3.5 text-sky-600" />
+            <span className="text-xs font-bold text-sky-700 uppercase tracking-wider">
+              Patient Stories
+            </span>
           </div>
-
-          <Link
-            to="/testimonials"
-            className="group hidden md:inline-flex items-center gap-2.5 rounded-xl border border-[#0E2A6D]/25 bg-white/90 backdrop-blur-sm px-6 py-3 text-xs sm:text-sm font-bold text-[#0E2A6D] shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#0E2A6D] hover:bg-[#0E2A6D] hover:text-white hover:shadow-md cursor-pointer self-start md:self-auto"
+          <h2
+            id="testimonials-heading"
+            className="text-3xl font-bold tracking-tight text-[#0E2A6D] sm:text-4xl lg:text-5xl font-outfit"
           >
-            <span>View All Stories</span>
-            <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-          </Link>
+            Real Stories, Real Smiles
+          </h2>
+          <p className="mt-3 text-base sm:text-lg text-slate-600 max-w-xl leading-relaxed">
+            Read genuine experiences shared by patients who trusted Kavuturu Dental Clinic for advanced, comfortable, and personalized dental care.
+          </p>
         </div>
 
-        {/* Infinite Horizontal Marquee Container */}
+        {/* Infinite Horizontal Marquee Container (Max 8 Reviews) */}
         <div className="relative w-full overflow-hidden py-4">
           {/* Subtle Left & Right Shadow Fades to smooth edges */}
           <div className="absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-white to-transparent pointer-events-none md:w-24" />
@@ -130,13 +121,13 @@ const TestimonialsSection = () => {
           </div>
         </div>
 
-        {/* Mobile Section Bottom CTA */}
-        <div className="mt-10 flex justify-center md:hidden">
+        {/* Section Bottom CTA (View All Reviews) */}
+        <div className="mt-12 flex justify-center">
           <Link
             to="/testimonials"
-            className="group inline-flex items-center gap-2.5 rounded-xl border border-[#0E2A6D]/25 bg-white/90 backdrop-blur-sm px-6 py-3 text-xs font-bold text-[#0E2A6D] shadow-sm transition-all duration-300 hover:border-[#0E2A6D] hover:bg-[#0E2A6D] hover:text-white hover:shadow-md cursor-pointer"
+            className="group inline-flex items-center gap-2.5 rounded-xl border border-[#0E2A6D]/25 bg-white/90 backdrop-blur-sm px-6 py-3 text-xs sm:text-sm font-bold text-[#0E2A6D] shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#0E2A6D] hover:bg-[#0E2A6D] hover:text-white hover:shadow-md cursor-pointer"
           >
-            <span>View All Stories</span>
+            <span>View All Reviews</span>
             <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
         </div>

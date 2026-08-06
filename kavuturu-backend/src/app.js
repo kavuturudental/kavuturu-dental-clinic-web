@@ -34,9 +34,32 @@ app.use(helmet());
 app.use(compression());
 
 // Enable CORS
+const allowedOrigins = [
+    "http://localhost:5173",
+    "https://www.kavuturudentalclinic.com",
+    "https://kavuturudentalclinic.com",
+    ...(process.env.CLIENT_URL
+        ? process.env.CLIENT_URL.split(",").map((url) => url.trim())
+        : []),
+];
+
 app.use(
     cors({
-        origin: process.env.CLIENT_URL || "http://localhost:5173",
+        origin: (origin, callback) => {
+            // Allow requests with no origin (e.g. mobile apps, curl, server-to-server)
+            if (!origin) return callback(null, true);
+
+            const isAllowed = allowedOrigins.some((allowed) => {
+                if (allowed === "*") return true;
+                return origin.replace(/\/$/, "") === allowed.replace(/\/$/, "");
+            });
+
+            if (isAllowed || origin.endsWith(".vercel.app")) {
+                return callback(null, true);
+            }
+
+            return callback(null, true);
+        },
         credentials: true,
     })
 );

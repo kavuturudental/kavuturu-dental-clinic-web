@@ -1,28 +1,12 @@
 // src/api/appointmentApi.js
 
-import axios from "axios";
-
-const API = axios.create({
-  baseURL: "http://localhost:5000/api",
-  withCredentials: true,
-});
-
-// Automatically attach JWT token using localStorage.getItem("token")
-API.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
-
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-
-  return config;
-});
+import api from "../services/api";
 
 /**
  * Get All Appointments
  */
 export const getAppointments = async (params = {}) => {
-  const response = await API.get("/appointments", { params });
+  const response = await api.get("/appointments", { params });
   return response.data;
 };
 
@@ -30,7 +14,7 @@ export const getAppointments = async (params = {}) => {
  * Get Single Appointment
  */
 export const getAppointmentById = async (id) => {
-  const response = await API.get(`/appointments/${id}`);
+  const response = await api.get(`/appointments/${id}`);
   return response.data;
 };
 
@@ -38,7 +22,7 @@ export const getAppointmentById = async (id) => {
  * Create Appointment
  */
 export const createAppointment = async (data) => {
-  const response = await API.post("/appointments", data);
+  const response = await api.post("/appointments", data);
   return response.data;
 };
 
@@ -46,7 +30,7 @@ export const createAppointment = async (data) => {
  * Update Appointment
  */
 export const updateAppointment = async (id, data) => {
-  const response = await API.put(`/appointments/${id}`, data);
+  const response = await api.put(`/appointments/${id}`, data);
   return response.data;
 };
 
@@ -55,11 +39,11 @@ export const updateAppointment = async (id, data) => {
  */
 export const updateAppointmentStatus = async (id, status) => {
   if (status === "Cancelled") {
-    const response = await API.patch(`/appointments/${id}/cancel`);
+    const response = await api.patch(`/appointments/${id}/cancel`);
     return response.data;
   }
 
-  const response = await API.patch(`/appointments/${id}/status`, { status });
+  const response = await api.patch(`/appointments/${id}/status`, { status });
   return response.data;
 };
 
@@ -67,7 +51,7 @@ export const updateAppointmentStatus = async (id, status) => {
  * Cancel Appointment
  */
 export const cancelAppointment = async (id) => {
-  const response = await API.patch(`/appointments/${id}/cancel`);
+  const response = await api.patch(`/appointments/${id}/cancel`);
   return response.data;
 };
 
@@ -75,6 +59,6 @@ export const cancelAppointment = async (id) => {
  * Delete Appointment
  */
 export const deleteAppointment = async (id) => {
-  const response = await API.delete(`/appointments/${id}`);
+  const response = await api.delete(`/appointments/${id}`);
   return response.data;
 };

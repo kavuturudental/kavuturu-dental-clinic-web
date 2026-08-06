@@ -1,7 +1,7 @@
 // src/components/common/TimeSlotPicker.jsx
 
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../services/api";
 import { timeSlots } from "../../data/appointment/appointmentData";
 
 export const TimeSlotPicker = ({
@@ -25,7 +25,7 @@ export const TimeSlotPicker = ({
     const fetchBookedSlots = async () => {
       try {
         setLoadingSlots(true);
-        const res = await axios.get(`http://localhost:5000/api/appointment-requests/booked-slots?date=${selectedDate}`);
+        const res = await api.get(`/appointment-requests/booked-slots?date=${selectedDate}`);
         if (isMounted && res.data?.bookedSlots) {
           setBookedSlots(res.data.bookedSlots);
         }

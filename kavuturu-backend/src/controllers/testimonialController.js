@@ -35,7 +35,7 @@ const parseReviewDateToDaysAgo = (str) => {
 };
 
 /**
- * @desc    Get Testimonials (Homepage max 8, default max 15, sorted by reviewDate chronologically)
+ * @desc    Get Testimonials (Homepage max 8, unlimited for full list, sorted by reviewDate chronologically)
  * @route   GET /api/website/testimonials
  * @access  Public
  */
@@ -43,7 +43,6 @@ const getTestimonials = async (req, res, next) => {
     try {
         const { homepage } = req.query;
         let query = { status: "Active" };
-        let limit = homepage === "true" ? 8 : 15;
 
         let testimonials = await Testimonial.find(query);
 
@@ -57,9 +56,9 @@ const getTestimonials = async (req, res, next) => {
             return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
         });
 
-        // Apply limit
-        if (testimonials.length > limit) {
-            testimonials = testimonials.slice(0, limit);
+        // Apply homepage limit
+        if (homepage === "true" && testimonials.length > 8) {
+            testimonials = testimonials.slice(0, 8);
         }
 
         return res.status(200).json({
@@ -73,21 +72,12 @@ const getTestimonials = async (req, res, next) => {
 };
 
 /**
- * @desc    Create New Testimonial Review (Max 15 limit check)
+ * @desc    Create New Testimonial Review
  * @route   POST /api/website/testimonials
  * @access  Private (Doctor Only)
  */
 const createTestimonial = async (req, res, next) => {
     try {
-        // Enforce 15 review maximum capacity limit
-        const totalCount = await Testimonial.countDocuments();
-        if (totalCount >= 15) {
-            return res.status(400).json({
-                success: false,
-                code: "LIMIT_REACHED",
-                message: "You have reached the maximum limit of 15 testimonials. Please edit or delete an existing review before adding a new one.",
-            });
-        }
 
         const {
             patientName,
