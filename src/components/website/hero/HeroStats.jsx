@@ -63,8 +63,6 @@ function HeroStats() {
     >
       <div
         className="
-          mx-auto
-          max-w-[1280px]
           px-4
           sm:px-6
           lg:px-8
@@ -74,6 +72,9 @@ function HeroStats() {
       >
         <div
           className="
+            mx-auto
+            max-w-[1280px]
+            w-full
             overflow-hidden
             rounded-3xl
             border
@@ -83,8 +84,6 @@ function HeroStats() {
             transition-all
             duration-300
             hover:shadow-2xl
-            w-full
-            max-w-full
           "
         >
           <div

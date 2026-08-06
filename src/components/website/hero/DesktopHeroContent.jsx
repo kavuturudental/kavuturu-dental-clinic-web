@@ -38,6 +38,7 @@ function DesktopHeroContent() {
         z-20
         hidden
         lg:block
+        px-4 sm:px-6 lg:px-8
       "
     >
       <div
@@ -46,8 +47,9 @@ function DesktopHeroContent() {
           flex
           h-full
           max-w-[1280px]
+          w-full
           items-center
-          px-4 sm:px-6 lg:px-8
+          px-6 lg:px-8
         "
       >
         <div
