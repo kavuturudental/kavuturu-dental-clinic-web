@@ -31,6 +31,21 @@ function HeroStats() {
     };
   }, []);
 
+  const getBorderClass = (index) => {
+    switch (index) {
+      case 0:
+        return "border-b border-blue-800/40 sm:border-r sm:border-b lg:border-r lg:border-b-0";
+      case 1:
+        return "border-b border-blue-800/40 sm:border-r-0 sm:border-b lg:border-r lg:border-b-0";
+      case 2:
+        return "border-b border-blue-800/40 sm:border-r sm:border-b-0 lg:border-r lg:border-b-0";
+      case 3:
+        return "border-b-0 sm:border-r-0 sm:border-b-0 lg:border-r-0 lg:border-b-0";
+      default:
+        return "border-blue-800/40";
+    }
+  };
+
   return (
     <section
       className="
@@ -38,15 +53,21 @@ function HeroStats() {
         z-30
         mt-0
         lg:-mt-32
-        pb-16
+        pb-12
+        sm:pb-16
+        w-full
+        max-w-full
+        overflow-hidden
       "
     >
       <div
         className="
           mx-auto
           max-w-[1280px]
-          px-5
-          lg:px-6
+          px-4
+          sm:px-6
+          w-full
+          max-w-full
         "
       >
         <div
@@ -60,18 +81,18 @@ function HeroStats() {
             transition-all
             duration-300
             hover:shadow-2xl
+            w-full
+            max-w-full
           "
         >
           <div
             className="
               grid
-              grid-cols-2
-              divide-x
-              divide-y
-              divide-blue-800/40
-
+              grid-cols-1
+              sm:grid-cols-2
               lg:grid-cols-[1fr_1.15fr_0.95fr_1.25fr]
-              lg:divide-y-0
+              w-full
+              max-w-full
             "
           >
             {statsData.map((item, index) => {
@@ -89,18 +110,22 @@ function HeroStats() {
               return (
                 <div
                   key={item.id}
-                  className="
+                  className={`
                     flex
                     items-center
-                    gap-4
-
-                    px-4
-                    py-4.5
-
+                    gap-3.5
+                    sm:gap-4
                     lg:gap-5
+                    px-4
+                    py-4
+                    sm:px-5
+                    sm:py-5
                     lg:px-7
                     lg:py-6
-                  "
+                    min-w-0
+                    w-full
+                    ${getBorderClass(index)}
+                  `}
                 >
                   {/* Icon */}
                   <div
@@ -108,14 +133,14 @@ function HeroStats() {
                       flex
                       h-10
                       w-10
+                      sm:h-11
+                      sm:w-11
                       lg:h-12
                       lg:w-12
                       shrink-0
                       items-center
                       justify-center
-
                       rounded-2xl
-
                       bg-white/15
                       backdrop-blur-md
                       border
@@ -127,6 +152,8 @@ function HeroStats() {
                       className="
                         h-5
                         w-5
+                        sm:h-5.5
+                        sm:w-5.5
                         lg:h-6
                         lg:w-6
                         text-emerald-400
@@ -135,15 +162,17 @@ function HeroStats() {
                   </div>
 
                   {/* Text */}
-                  <div className="flex flex-col justify-center min-w-0">
+                  <div className="flex flex-col justify-center min-w-0 flex-1">
                     <h3
                       className={`
                         font-black
                         leading-tight
                         text-white
+                        min-w-0
+                        break-words
                         ${
                           isLongTextValue
-                            ? "text-base sm:text-lg lg:text-[20px] whitespace-nowrap"
+                            ? "text-base sm:text-lg lg:text-[20px]"
                             : "text-xl sm:text-2xl lg:text-3xl"
                         }
                       `}
@@ -158,8 +187,9 @@ function HeroStats() {
                         lg:text-sm
                         font-bold
                         leading-snug
-                        whitespace-nowrap
                         text-slate-100
+                        min-w-0
+                        break-words
                       "
                     >
                       {title}
@@ -169,9 +199,12 @@ function HeroStats() {
                       <p
                         className="
                           mt-0.5
-                          text-xs
+                          text-[11px]
+                          sm:text-xs
                           leading-4
                           text-blue-200/80
+                          min-w-0
+                          break-words
                         "
                       >
                         {subtitle}
