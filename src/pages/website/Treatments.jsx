@@ -6,6 +6,7 @@ import TreatmentList from "../../components/website/treatments/TreatmentList";
 import TreatmentCTA from "../../components/website/treatments/TreatmentCTA";
 import Footer from "../../components/website/footer/Footer";
 import PublicPageBackground from "../../components/website/common/PublicPageBackground";
+import SEO from "../../components/seo/SEO";
 
 const Treatments = () => {
   const [searchParams] = useSearchParams();
@@ -25,6 +26,11 @@ const Treatments = () => {
 
   return (
     <main className="relative bg-[#FCFCFD] pt-[72px] lg:pt-[88px] overflow-hidden">
+      <SEO
+        title="Dental Treatments & Procedures | Kavuturu Dental Clinic Tirupati"
+        description="Comprehensive dental treatments in Tirupati including laser root canals, dental implants, clear aligners, teeth whitening, crowns, and oral surgery."
+        canonical="https://www.kavuturudentalclinic.com/treatments"
+      />
       <PublicPageBackground />
       <div className="relative z-10">
         <Breadcrumb />

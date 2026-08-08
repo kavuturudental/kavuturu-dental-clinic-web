@@ -12,6 +12,7 @@ import InnerPageCTA from "../../components/common/InnerPageCTA";
 import ContactSection from "../../components/website/home/contact/ContactSection";
 import Footer from "../../components/website/footer/Footer";
 import PublicPageBackground from "../../components/website/common/PublicPageBackground";
+import SEO from "../../components/seo/SEO";
 
 function Home() {
   useEffect(() => {
@@ -28,6 +29,11 @@ function Home() {
 
   return (
     <main className="relative bg-[#FCFCFD] text-slate-800 overflow-hidden font-sans">
+      <SEO
+        title="Kavuturu Dental Clinic & Hospital | Dental Implants & Laser Dentistry in Tirupati"
+        description="Kavuturu Dental Clinic in Tirupati offers advanced laser dentistry, painless root canals, dental implants, clear aligners, and family dental care by Chief Endodontist Dr. K. Ravindra Babu."
+        canonical="https://www.kavuturudentalclinic.com/"
+      />
       <PublicPageBackground />
 
       {/* Homepage Sections */}

@@ -70,6 +70,12 @@ export const contactData = {
       label: "Get Directions",
       link: "https://maps.app.goo.gl/hG5cK9dZT8xY5k9j8"
     }
+  },
+
+  emergency: {
+    badge: "Immediate Care & Support",
+    title: "Need Immediate Assistance?",
+    description: "Our team is here to help you with appointments and dental emergencies during clinic hours."
   }
 };
 

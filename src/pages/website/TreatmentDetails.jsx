@@ -7,6 +7,7 @@ import TreatmentCTA from "../../components/website/treatments/TreatmentCTA";
 import Footer from "../../components/website/footer/Footer";
 import staticTreatments from "../../data/website/treatments";
 import { getTreatments } from "../../services/website/treatmentService";
+import SEO from "../../components/seo/SEO";
 
 const TreatmentDetails = () => {
   const { id } = useParams();
@@ -102,6 +103,11 @@ const TreatmentDetails = () => {
 
   return (
     <main className="bg-white pt-[72px] lg:pt-[88px]">
+      <SEO
+        title={treatment ? `${treatment.name || treatment.title} Treatment` : "Dental Treatment Details"}
+        description={treatment?.previewDescription || treatment?.description || "Learn about advanced dental treatment procedures at Kavuturu Dental Clinic in Tirupati."}
+        canonical={`https://www.kavuturudentalclinic.com/treatments/${id}`}
+      />
       <Breadcrumb />
 
       <TreatmentSection

@@ -1,9 +1,9 @@
 User-agent: *
-
 Allow: /
 
 Disallow: /login
+Disallow: /forgot-password
+Disallow: /reset-password/
 Disallow: /doctor/
-Disallow: /receptionist/
 
 Sitemap: https://www.kavuturudentalclinic.com/sitemap.xml

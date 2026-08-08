@@ -7,6 +7,7 @@ import PublicPageBackground from "../../components/website/common/PublicPageBack
 import Footer from "../../components/website/footer/Footer";
 import { getContact } from "../../services/website/contactService";
 import { contactData as defaultContact } from "../../data/website/contactData";
+import SEO from "../../components/seo/SEO";
 
 const PrivacyPolicy = () => {
   const [contactInfo, setContactInfo] = useState(null);
@@ -35,6 +36,11 @@ const PrivacyPolicy = () => {
 
   return (
     <main className="relative bg-[#FCFCFD] pt-[72px] lg:pt-[88px] overflow-hidden font-sans min-h-screen flex flex-col justify-between">
+      <SEO
+        title="Privacy Policy | Kavuturu Dental Clinic Tirupati"
+        description="Official privacy policy and patient data confidentiality guidelines for Kavuturu Dental Clinic."
+        canonical="https://www.kavuturudentalclinic.com/privacy-policy"
+      />
       <PublicPageBackground />
 
       <div className="relative z-10 flex-grow">

@@ -5,7 +5,7 @@ import { HeartPulse, PhoneCall } from "lucide-react";
 import { contactData } from "../../../../data/website/contactData";
 
 export const EmergencySupport = () => {
-  const { emergency } = contactData;
+  const badgeText = contactData.emergency?.badge || "Emergency Support";
 
   return (
     <div className="overflow-hidden rounded-3xl border border-rose-100 bg-gradient-to-r from-rose-50/40 via-white to-rose-50/10 p-6 shadow-[0_4px_20px_-4px_rgba(244,63,94,0.05)]">
@@ -19,7 +19,7 @@ export const EmergencySupport = () => {
           </div>
           <div>
             <span className="inline-flex rounded-full bg-rose-100 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-rose-700">
-              {emergency.badge}
+              {badgeText}
             </span>
             <h3 className="mt-2 text-lg font-extrabold text-slate-900 font-outfit">
               Need Immediate Assistance?

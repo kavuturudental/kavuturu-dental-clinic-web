@@ -6,10 +6,16 @@ import DoctorsCTA from "../../components/website/doctors/DoctorsCTA";
 import Footer from "../../components/website/footer/Footer";
 import PublicPageBackground from "../../components/website/common/PublicPageBackground";
 import { UserCheck } from "lucide-react";
+import SEO from "../../components/seo/SEO";
 
 const Doctors = () => {
   return (
     <main className="relative bg-[#FCFCFD] pt-[72px] lg:pt-[88px] overflow-hidden">
+      <SEO
+        title="Our Dental Specialists & Doctors | Kavuturu Dental Clinic Tirupati"
+        description="Meet Chief Endodontist Dr. K. Ravindra Babu and expert visiting dental specialists at Kavuturu Dental Clinic in Tirupati."
+        canonical="https://www.kavuturudentalclinic.com/doctors"
+      />
       <PublicPageBackground />
       <div className="relative z-10">
         <Breadcrumb />

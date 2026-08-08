@@ -1,10 +1,16 @@
 import React from "react";
 import { Phone, PhoneCall, Clock, ShieldCheck, CheckCircle } from "lucide-react";
 import PublicPageBackground from "../../components/website/common/PublicPageBackground";
+import SEO from "../../components/seo/SEO";
 
 export default function BookAppointment() {
   return (
     <div className="relative min-h-screen bg-[#FCFCFD] pt-28 pb-16 px-4 sm:px-6 lg:px-8 font-sans overflow-hidden">
+      <SEO
+        title="Book Appointment | Kavuturu Dental Clinic Tirupati"
+        description="Schedule a consultation or book a dental appointment directly with Kavuturu Dental Clinic in Tirupati."
+        canonical="https://www.kavuturudentalclinic.com/book-appointment"
+      />
       <PublicPageBackground />
       <div className="relative z-10 max-w-3xl mx-auto text-center">
         

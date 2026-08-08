@@ -5,10 +5,16 @@ import BeforeAfterList from "../../components/website/before-after/BeforeAfterLi
 import InnerPageCTA from "../../components/common/InnerPageCTA";
 import Footer from "../../components/website/footer/Footer";
 import PublicPageBackground from "../../components/website/common/PublicPageBackground";
+import SEO from "../../components/seo/SEO";
 
 const BeforeAfter = () => {
   return (
     <main className="relative bg-[#FCFCFD] pt-[72px] lg:pt-[88px] overflow-hidden">
+      <SEO
+        title="Before & After Smile Transformations | Kavuturu Dental Clinic Tirupati"
+        description="See real clinical before and after smile transformations, laser root canals, composite restorations, and dental implant cases from Kavuturu Dental Clinic."
+        canonical="https://www.kavuturudentalclinic.com/before-after"
+      />
       <PublicPageBackground />
       <div className="relative z-10">
         {/* Breadcrumb */}

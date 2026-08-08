@@ -8,10 +8,16 @@ import TestimonialsGrid from "../../components/website/testimonials/Testimonials
 import Footer from "../../components/website/footer/Footer";
 import InnerPageCTA from "../../components/common/InnerPageCTA";
 import PublicPageBackground from "../../components/website/common/PublicPageBackground";
+import SEO from "../../components/seo/SEO";
 
 const Testimonials = () => {
   return (
     <main className="relative bg-[#FCFCFD] pt-[72px] lg:pt-[88px] overflow-hidden">
+      <SEO
+        title="Patient Testimonials & Reviews | Kavuturu Dental Clinic Tirupati"
+        description="Read genuine patient reviews, testimonials, and star ratings for root canal treatments, implants, and laser dentistry at Kavuturu Dental Clinic."
+        canonical="https://www.kavuturudentalclinic.com/testimonials"
+      />
       <PublicPageBackground />
       <div className="relative z-10">
         {/* Inline Breadcrumb Section */}

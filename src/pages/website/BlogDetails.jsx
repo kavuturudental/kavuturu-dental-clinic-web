@@ -13,6 +13,7 @@ import * as staticArticles from "../../data/blogs/articles";
 import staticBlogData from "../../data/blogs/blogsData";
 import Footer from "../../components/website/footer/Footer";
 import { getBlogBySlugOrId } from "../../services/website/blogService";
+import SEO from "../../components/seo/SEO";
 
 const BlogDetails = () => {
   const { slug } = useParams();
@@ -104,6 +105,12 @@ const BlogDetails = () => {
 
   return (
     <main className="bg-white pt-[72px] lg:pt-[88px]">
+      <SEO
+        title={article ? article.title : "Dental Health Article"}
+        description={article?.summary || article?.snippet || article?.excerpt || "Read insightful dental health articles from Kavuturu Dental Clinic."}
+        canonical={`https://www.kavuturudentalclinic.com/blogs/${slug}`}
+        ogType="article"
+      />
       <ArticleBreadcrumb article={article} />
       
       <ArticleHero article={article} />
