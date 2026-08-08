@@ -82,11 +82,13 @@ export default function DoctorsCMS() {
     setDoctorsLoading(true);
     try {
       const res = await doctorCmsService.getAllDoctors();
-      // EXPLICIT FILTER: Exclude the Featured Doctor completely from the secondary list
-      const secondaryList = (res.data || []).filter(d => 
-        !d.isFeatured && 
-        !(d.name && d.name.toLowerCase().includes("ravindra"))
-      );
+      // EXPLICIT FILTER & SORT: Exclude Featured Doctor and sort secondary doctors by displayOrder ascending
+      const secondaryList = (res.data || [])
+        .filter(d => 
+          !d.isFeatured && 
+          !(d.name && d.name.toLowerCase().includes("ravindra"))
+        )
+        .sort((a, b) => (Number(a.displayOrder) || 1) - (Number(b.displayOrder) || 1));
       setDoctors(secondaryList);
     } catch (err) {
       console.error("Failed to load secondary doctors list:", err);
@@ -148,13 +150,14 @@ export default function DoctorsCMS() {
   // Section 2: Secondary Doctors Management Handlers
   const handleOpenAddModal = () => {
     setEditingDoctor(null);
+    const nextOrder = doctors.reduce((max, d) => Math.max(max, Number(d.displayOrder) || 0), 0) + 1;
     setDoctorForm({
       name: "",
       qualification: "",
       specialization: "",
       profileSummary: "",
       experience: "",
-      displayOrder: doctors.length + 2
+      displayOrder: nextOrder
     });
     setErrors({});
     setIsModalOpen(true);
@@ -168,7 +171,7 @@ export default function DoctorsCMS() {
       specialization: doc.specialization || "",
       profileSummary: doc.profileSummary || "",
       experience: doc.experience || "",
-      displayOrder: doc.displayOrder || 2
+      displayOrder: doc.displayOrder || 1
     });
     setErrors({});
     setIsModalOpen(true);
@@ -194,6 +197,22 @@ export default function DoctorsCMS() {
       return;
     }
 
+    // Client-side duplicate check: Name, Qualification, Specialization, and Experience all matching
+    const isDuplicate = doctors.some(d => {
+      if (editingDoctor && (d._id || d.id) === (editingDoctor._id || editingDoctor.id)) return false;
+      return (
+        d.name.trim().toLowerCase() === doctorForm.name.trim().toLowerCase() &&
+        (d.qualification || "").trim().toLowerCase() === doctorForm.qualification.trim().toLowerCase() &&
+        (d.specialization || "").trim().toLowerCase() === doctorForm.specialization.trim().toLowerCase() &&
+        (d.experience || "").trim().toLowerCase() === (doctorForm.experience || "").trim().toLowerCase()
+      );
+    });
+
+    if (isDuplicate) {
+      if (triggerToast) triggerToast("Duplicate doctor details! A doctor with identical Name, Qualification, Specialization, and Experience already exists.", "error");
+      return;
+    }
+
     setSubmitting(true);
     try {
       if (editingDoctor) {
@@ -207,7 +226,8 @@ export default function DoctorsCMS() {
       loadAllDoctors();
     } catch (err) {
       console.error("Failed to save doctor:", err);
-      if (triggerToast) triggerToast("Failed to save doctor.", "error");
+      const errMsg = err.response?.data?.message || "Failed to save doctor.";
+      if (triggerToast) triggerToast(errMsg, "error");
     } finally {
       setSubmitting(false);
     }

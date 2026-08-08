@@ -11,7 +11,7 @@ export const quickLinks = [
   { label: "Before & After", href: "/before-after" },
   { label: "Testimonials", href: "/testimonials" },
   { label: "Blogs", href: "/blogs" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export const treatments = [

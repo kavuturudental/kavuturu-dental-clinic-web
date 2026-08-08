@@ -26,10 +26,12 @@ const DoctorsGrid = () => {
 
   const displayDoctors = doctorList.length > 0 ? doctorList : fallbackDoctors;
 
-  // Filter out featured doctor (Dr. K. Ravindra Babu) from the main Doctors page grid
-  const specialists = displayDoctors.filter(
-    (d) => !d.isFeatured && !(d.name && d.name.toLowerCase().includes("ravindra"))
-  );
+  // Filter out featured doctor (Dr. K. Ravindra Babu) from the grid and sort secondary doctors by displayOrder ascending
+  const specialists = displayDoctors
+    .filter(
+      (d) => !d.isFeatured && !(d.name && d.name.toLowerCase().includes("ravindra"))
+    )
+    .sort((a, b) => (Number(a.displayOrder) || 1) - (Number(b.displayOrder) || 1));
 
   return (
     <section className="bg-slate-50/50 py-20 lg:py-28">

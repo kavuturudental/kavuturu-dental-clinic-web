@@ -21,6 +21,7 @@ import Blogs from "./pages/website/Blogs";
 import BlogDetails from "./pages/website/BlogDetails";
 import BeforeAfter from "./pages/website/BeforeAfter";
 import BookAppointment from "./pages/website/BookAppointment";
+import Contact from "./pages/website/Contact";
 import PrivacyPolicy from "./pages/website/PrivacyPolicy";
 import TermsAndConditions from "./pages/website/TermsAndConditions";
 
@@ -73,6 +74,7 @@ function AppContent() {
         <Route path="/blogs/:slug" element={<BlogDetails />} />
         <Route path="/before-after" element={<BeforeAfter />} />
         <Route path="/book-appointment" element={<BookAppointment />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route
           path="/terms-and-conditions"

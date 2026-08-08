@@ -41,8 +41,8 @@ const navigationData = [
   {
     id: 7,
     label: "Contact",
-    href: "#contact",
-    type: "section",
+    href: "/contact",
+    type: "route",
   },
 ];
 

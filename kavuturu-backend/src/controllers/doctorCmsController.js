@@ -172,14 +172,36 @@ const createDoctor = async (req, res, next) => {
             });
         }
 
+        const trimmedName = name.trim();
+        const trimmedQual = qualification.trim();
+        const trimmedSpec = specialization.trim();
+        const trimmedExp = (experience || "").trim();
+
+        // Duplicate Check: check if a doctor with identical name, qualification, specialization, and experience exists
+        const allDoctors = await Doctor.find({});
+        const isDuplicate = allDoctors.some(
+            (d) =>
+                d.name.trim().toLowerCase() === trimmedName.toLowerCase() &&
+                d.qualification.trim().toLowerCase() === trimmedQual.toLowerCase() &&
+                d.specialization.trim().toLowerCase() === trimmedSpec.toLowerCase() &&
+                (d.experience || "").trim().toLowerCase() === trimmedExp.toLowerCase()
+        );
+
+        if (isDuplicate) {
+            return res.status(400).json({
+                success: false,
+                message: "Duplicate doctor details! A doctor with identical Name, Qualification, Specialization, and Experience already exists.",
+            });
+        }
+
         const doctor = await Doctor.create({
-            name: name.trim(),
-            qualification: qualification.trim(),
-            specialization: specialization.trim(),
+            name: trimmedName,
+            qualification: trimmedQual,
+            specialization: trimmedSpec,
             profileSummary: profileSummary.trim(),
-            experience: (experience || "").trim(),
+            experience: trimmedExp,
             isFeatured: false,
-            displayOrder: Number(displayOrder) > 0 ? Number(displayOrder) : 2,
+            displayOrder: Number(displayOrder) > 0 ? Number(displayOrder) : 1,
             status: status || "Active",
         });
 
@@ -219,11 +241,33 @@ const updateDoctor = async (req, res, next) => {
             });
         }
 
-        if (name) doctor.name = name.trim();
-        if (qualification) doctor.qualification = qualification.trim();
-        if (specialization) doctor.specialization = specialization.trim();
+        const newName = (name !== undefined ? name : doctor.name).trim();
+        const newQual = (qualification !== undefined ? qualification : doctor.qualification).trim();
+        const newSpec = (specialization !== undefined ? specialization : doctor.specialization).trim();
+        const newExp = (experience !== undefined ? experience : doctor.experience || "").trim();
+
+        // Duplicate Check: check if another doctor with identical details exists
+        const allDoctors = await Doctor.find({ _id: { $ne: req.params.id } });
+        const isDuplicate = allDoctors.some(
+            (d) =>
+                d.name.trim().toLowerCase() === newName.toLowerCase() &&
+                d.qualification.trim().toLowerCase() === newQual.toLowerCase() &&
+                d.specialization.trim().toLowerCase() === newSpec.toLowerCase() &&
+                (d.experience || "").trim().toLowerCase() === newExp.toLowerCase()
+        );
+
+        if (isDuplicate) {
+            return res.status(400).json({
+                success: false,
+                message: "Duplicate doctor details! A doctor with identical Name, Qualification, Specialization, and Experience already exists.",
+            });
+        }
+
+        if (name) doctor.name = newName;
+        if (qualification) doctor.qualification = newQual;
+        if (specialization) doctor.specialization = newSpec;
         if (profileSummary) doctor.profileSummary = profileSummary.trim();
-        if (experience !== undefined) doctor.experience = (experience || "").trim();
+        if (experience !== undefined) doctor.experience = newExp;
         if (displayOrder !== undefined && Number(displayOrder) > 0) doctor.displayOrder = Number(displayOrder);
         if (status) doctor.status = status;
 
