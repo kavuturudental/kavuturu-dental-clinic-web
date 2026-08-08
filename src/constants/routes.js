@@ -9,8 +9,7 @@ export const ROUTES = {
     GALLERY: "/gallery",
     TESTIMONIALS: "/testimonials",
     BLOGS: "/blogs",
-    BEFORE_AFTER: "/before-after",
-    BOOK_APPOINTMENT: "/book-appointment"
+    BEFORE_AFTER: "/before-after"
   },
   AUTH: {
     LOGIN: "/login"
