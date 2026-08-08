@@ -4,8 +4,8 @@ import React from "react";
 import { Helmet } from "react-helmet-async";
 
 const SEO = ({
-  title = "Kavuturu Dental Clinic & Hospital | Dental Implants & Laser Dentistry in Tirupati",
-  description = "Kavuturu Dental Clinic in Tirupati offers advanced laser dentistry, painless root canals, dental implants, clear aligners, and family dental care by Chief Endodontist Dr. K. Ravindra Babu.",
+  title = "Kavuturu Dental Clinic | Best Dental Clinic & Dentist in Tirupati",
+  description = "Kavuturu Dental Clinic is a trusted dental clinic in Tirupati offering dental implants, root canal treatment, smile makeovers, cosmetic dentistry, teeth whitening, braces, and complete family dental care with advanced technology.",
   canonical = "https://www.kavuturudentalclinic.com/",
   ogType = "website",
   ogImage = "https://www.kavuturudentalclinic.com/logo.png",
