@@ -1,55 +1,121 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- =========================
+         GOOGLE ANALYTICS (GA4)
+    ========================== -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-DEEZ1ZZ7FK"
+    ></script>
 
-    <!-- Google Analytics (GA4) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DEEZ1ZZ7FK"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
+
       function gtag() {
         dataLayer.push(arguments);
       }
+
       gtag("js", new Date());
 
       gtag("config", "G-DEEZ1ZZ7FK");
     </script>
 
-    <!-- Character Encoding -->
+    <!-- =========================
+         CHARACTER ENCODING
+    ========================== -->
     <meta charset="UTF-8" />
 
-    <!-- Responsive -->
+    <!-- =========================
+         RESPONSIVE
+    ========================== -->
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
 
-    <!-- Title (Will be overridden by React Helmet on each page) -->
-    <title>Kavuturu Dental Clinic</title>
+    <!-- =========================
+         DEFAULT SEO
+         React Helmet overrides
+         this on individual pages
+    ========================== -->
+    <title>
+      Kavuturu Dental Clinic | Best Dental Clinic & Dentist in Tirupati
+    </title>
 
-    <!-- SEO -->
     <meta
       name="description"
-      content="Advanced laser dentistry, dental implants, aligners, cosmetic dentistry and family dental care in Tirupati."
+      content="Kavuturu Dental Clinic is a trusted dental clinic in Tirupati offering dental implants, root canal treatment, smile makeovers, cosmetic dentistry, teeth whitening, braces, and complete family dental care with advanced technology."
     />
 
+    <!-- =========================
+         THEME COLOR
+    ========================== -->
     <meta
       name="theme-color"
       content="#0E2A6D"
     />
 
-    <!-- Favicon -->
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <!-- =========================
+         FAVICON
+    ========================== -->
 
-    <!-- Web Manifest -->
+    <!-- ICO fallback -->
+    <link
+      rel="icon"
+      href="/favicon.ico"
+      sizes="any"
+    />
+
+    <!-- 16x16 favicon -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/favicon-16x16.png"
+    />
+
+    <!-- 32x32 favicon -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/favicon-32x32.png"
+    />
+
+    <!-- 192x192 favicon -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="/favicon-192x192.png"
+    />
+
+    <!-- 512x512 favicon -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="/favicon-512x512.png"
+    />
+
+    <!-- Apple Touch Icon -->
+    <link
+      rel="apple-touch-icon"
+      href="/apple-touch-icon.png"
+    />
+
+    <!-- =========================
+         WEB APP MANIFEST
+    ========================== -->
     <link
       rel="manifest"
       href="/site.webmanifest"
     />
 
-    <!-- Google Fonts -->
+    <!-- =========================
+         GOOGLE FONTS
+    ========================== -->
     <link
       rel="preconnect"
       href="https://fonts.googleapis.com"
@@ -68,8 +134,10 @@
   </head>
 
   <body>
+    <!-- React Application -->
     <div id="root"></div>
 
+    <!-- React Entry -->
     <script
       type="module"
       src="/src/main.jsx"
