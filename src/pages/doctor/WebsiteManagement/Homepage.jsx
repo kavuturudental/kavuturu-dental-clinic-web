@@ -100,38 +100,104 @@ export default function HomepageCMS() {
     const footerInfo = websiteService.getFooter() || {};
 
     return {
-      hero: rawData.hero || {
-        trustBadge: "US-FDA Approved Waterlase Laser Technology",
-        title: "Painless Laser Dentistry & Advanced Dental Care",
-        subtitle: "Experience world-class dental care in Eluru with Dr. K. Ravindra Babu.",
-        primaryCtaText: "Book Appointment",
-        primaryCtaLink: "/appointment",
-        secondaryCtaText: "Explore Treatments",
-        secondaryCtaLink: "/treatments",
-        heroImage: "/assets/images/doctors/dr-ravindra-babu.webp"
-      },
+    const rawHero = rawData.hero || {};
+    let heroPrimaryText = rawHero.primaryCtaText || "Call Now";
+    if (heroPrimaryText === "Book Appointment" || heroPrimaryText === "Book Your Visit Now") {
+      heroPrimaryText = "Call Now";
+    }
+    let heroPrimaryLink = rawHero.primaryCtaLink || "tel:+918309479901";
+    if (heroPrimaryLink === "/appointment") {
+      heroPrimaryLink = "tel:+918309479901";
+    }
+    let heroSubtitle = rawHero.subtitle || "Experience advanced dental care with Dr. K. Ravindra Babu at Kavuturu Dental Clinic in Tirupati.";
+    if (heroSubtitle === "Experience world-class dental care in Eluru with Dr. K. Ravindra Babu.") {
+      heroSubtitle = "Experience advanced dental care with Dr. K. Ravindra Babu at Kavuturu Dental Clinic in Tirupati.";
+    }
+
+    const hero = {
+      trustBadge: "US-FDA Approved Waterlase Laser Technology",
+      title: "Painless Laser Dentistry & Advanced Dental Care",
+      subtitle: heroSubtitle,
+      primaryCtaText: heroPrimaryText,
+      primaryCtaLink: heroPrimaryLink,
+      secondaryCtaText: "Explore Treatments",
+      secondaryCtaLink: "/treatments",
+      heroImage: "/assets/images/doctors/dr-ravindra-babu.webp",
+      ...rawHero,
+      subtitle: heroSubtitle,
+      primaryCtaText: heroPrimaryText,
+      primaryCtaLink: heroPrimaryLink
+    };
+
+    const rawAbout = rawData.aboutPreview || {};
+    let aboutHeading = rawAbout.heading || "Tirupati's Trusted Dental Care Center";
+    if (aboutHeading === "Eluru's Most Trusted Dental Care Center") {
+      aboutHeading = "Tirupati's Trusted Dental Care Center";
+    }
+    let aboutDesc = rawAbout.description || "Kavuturu Dental Clinic provides advanced dental care with modern technology and a patient-first approach.";
+    if (aboutDesc === "Kavuturu Dental Clinic is equipped with state-of-the-art Waterlase laser technology.") {
+      aboutDesc = "Kavuturu Dental Clinic provides advanced dental care with modern technology and a patient-first approach.";
+    }
+
+    const aboutPreview = {
+      heading: aboutHeading,
+      description: aboutDesc,
+      image: "/assets/images/gallery/doctor-consultation.webp",
+      buttonText: "Read Our Story",
+      buttonLink: "/about",
+      ...rawAbout,
+      heading: aboutHeading,
+      description: aboutDesc
+    };
+
+    const rawCta = rawData.appointmentCta || {};
+    let ctaPrimaryText = rawCta.primaryButtonText || "Call Now";
+    if (ctaPrimaryText === "Book Your Visit Now" || ctaPrimaryText === "Book Appointment") {
+      ctaPrimaryText = "Call Now";
+    }
+    let ctaPrimaryLink = rawCta.primaryButtonLink || "tel:+918309479901";
+    if (ctaPrimaryLink === "/appointment") {
+      ctaPrimaryLink = "tel:+918309479901";
+    }
+    let ctaSecondaryText = rawCta.secondaryButtonText || "WhatsApp Us";
+    if (ctaSecondaryText === "Call Clinic Directly") {
+      ctaSecondaryText = "WhatsApp Us";
+    }
+    let ctaSecondaryLink = rawCta.secondaryButtonLink || "https://wa.me/918309479901";
+    if (ctaSecondaryLink === "tel:+919848012345") {
+      ctaSecondaryLink = "https://wa.me/918309479901";
+    }
+    let ctaDescription = rawCta.description || "Talk to Kavuturu Dental Clinic today for advanced dental care and treatment guidance in Tirupati.";
+    if (ctaDescription === "Schedule your consultation with our chief endodontist today.") {
+      ctaDescription = "Talk to Kavuturu Dental Clinic today for advanced dental care and treatment guidance in Tirupati.";
+    }
+
+    const appointmentCta = {
+      heading: "Ready for a Healthy, Confident Smile?",
+      description: ctaDescription,
+      primaryButtonText: ctaPrimaryText,
+      primaryButtonLink: ctaPrimaryLink,
+      secondaryButtonText: ctaSecondaryText,
+      secondaryButtonLink: ctaSecondaryLink,
+      bgImage: "/assets/images/gallery/treatment-room.webp",
+      ...rawCta,
+      description: ctaDescription,
+      primaryButtonText: ctaPrimaryText,
+      primaryButtonLink: ctaPrimaryLink,
+      secondaryButtonText: ctaSecondaryText,
+      secondaryButtonLink: ctaSecondaryLink
+    };
+
+    return {
+      hero,
       statCards: Array.isArray(rawData.statCards) ? rawData.statCards : [
         { id: "stat-1", icon: "users", number: "25,000+", label: "Happy Patients", description: "Patients treated with quality dental care.", enabled: true, order: 1 },
         { id: "stat-2", icon: "calendar", number: "18+", label: "Years of Experience", description: "Delivering painless laser dental care.", enabled: true, order: 2 },
         { id: "stat-3", icon: "award", number: "99.4%", label: "Success Rate", description: "Highest precision endodontic success.", enabled: true, order: 3 },
         { id: "stat-4", icon: "star", number: "4.9/5", label: "Google Rating", description: "Based on 500+ verified patient reviews.", enabled: true, order: 4 }
       ],
-      aboutPreview: rawData.aboutPreview || {
-        heading: "Eluru's Most Trusted Dental Care Center",
-        description: "Kavuturu Dental Clinic is equipped with state-of-the-art Waterlase laser technology.",
-        image: "/assets/images/gallery/doctor-consultation.webp",
-        buttonText: "Read Our Story",
-        buttonLink: "/about"
-      },
-      appointmentCta: rawData.appointmentCta || {
-        heading: "Ready for a Healthy, Confident Smile?",
-        description: "Schedule your consultation with our chief endodontist today.",
-        primaryButtonText: "Book Your Visit Now",
-        primaryButtonLink: "/appointment",
-        secondaryButtonText: "Call Clinic Directly",
-        secondaryButtonLink: "tel:+919848012345",
-        bgImage: "/assets/images/gallery/treatment-room.webp"
-      },
+      aboutPreview,
+      appointmentCta,
       treatments: ensureSixTreatments(trtList),
       doctors: Array.isArray(docList) ? docList : [],
       beforeAfter: Array.isArray(baList) ? baList : [],
@@ -499,7 +565,7 @@ export default function HomepageCMS() {
                   <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
                     <span className="text-[11px] font-extrabold text-[#0E2A6D] uppercase block">Primary CTA Button</span>
                     <input type="text" placeholder="Button Text" value={safeVal(hero.primaryCtaText)} onChange={(e) => handleDataChange("hero", "primaryCtaText", e.target.value)} className="w-full h-9 rounded-lg border border-slate-200 px-3 text-xs font-bold text-slate-800 outline-none" />
-                    <input type="text" placeholder="Button Link" value={safeVal(hero.primaryCtaLink, "/appointment")} onChange={(e) => handleDataChange("hero", "primaryCtaLink", e.target.value)} className="w-full h-8 rounded-lg border border-slate-200 px-3 text-[11px] font-medium text-slate-500 outline-none" />
+                    <input type="text" placeholder="Button Link" value={safeVal(hero.primaryCtaLink, "tel:+918309479901")} onChange={(e) => handleDataChange("hero", "primaryCtaLink", e.target.value)} className="w-full h-8 rounded-lg border border-slate-200 px-3 text-[11px] font-medium text-slate-500 outline-none" />
                   </div>
 
                   <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
@@ -1088,13 +1154,13 @@ export default function HomepageCMS() {
           )}
         </div>
 
-        {/* 9. APPOINTMENT CTA */}
+        {/* 9. CONTACT CTA */}
         <div className="bg-white rounded-[20px] border border-[#E5E7EB] shadow-[0_8px_30px_rgb(0,0,0,0.03)] overflow-hidden transition-all">
           <div onClick={() => toggleSection("appointmentCta")} className="p-5 flex items-center justify-between bg-white hover:bg-slate-50/50 cursor-pointer border-b border-slate-100">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-xl bg-[#0E2A6D]/10 text-[#0E2A6D] flex items-center justify-center font-bold"><Calendar className="w-4.5 h-4.5" /></div>
               <div>
-                <h3 className="text-base font-extrabold text-slate-900 tracking-tight">Appointment CTA</h3>
+                <h3 className="text-base font-extrabold text-slate-900 tracking-tight">Contact CTA</h3>
                 <p className="text-[13px] font-medium text-slate-400 mt-0.5">Heading • Description • Primary & Secondary CTAs</p>
               </div>
             </div>
@@ -1118,11 +1184,21 @@ export default function HomepageCMS() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-[11px] font-bold uppercase text-slate-600 mb-1">Primary Button Text</label>
-                  <input type="text" value={safeVal(appointmentCta.primaryButtonText, "Book Your Visit Now")} onChange={(e) => handleDataChange("appointmentCta", "primaryButtonText", e.target.value)} className="w-full h-9 rounded-xl border border-slate-200 px-3 text-xs font-bold text-slate-800 outline-none" />
+                  <input type="text" value={safeVal(appointmentCta.primaryButtonText, "Call Now")} onChange={(e) => handleDataChange("appointmentCta", "primaryButtonText", e.target.value)} className="w-full h-9 rounded-xl border border-slate-200 px-3 text-xs font-bold text-slate-800 outline-none" />
                 </div>
                 <div>
                   <label className="block text-[11px] font-bold uppercase text-slate-600 mb-1">Primary Button Link</label>
-                  <input type="text" value={safeVal(appointmentCta.primaryButtonLink, "/appointment")} onChange={(e) => handleDataChange("appointmentCta", "primaryButtonLink", e.target.value)} className="w-full h-9 rounded-xl border border-slate-200 px-3 text-xs font-medium text-slate-500 outline-none" />
+                  <input type="text" value={safeVal(appointmentCta.primaryButtonLink, "tel:+918309479901")} onChange={(e) => handleDataChange("appointmentCta", "primaryButtonLink", e.target.value)} className="w-full h-9 rounded-xl border border-slate-200 px-3 text-xs font-medium text-slate-500 outline-none" />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-[11px] font-bold uppercase text-slate-600 mb-1">Secondary Button Text</label>
+                  <input type="text" value={safeVal(appointmentCta.secondaryButtonText, "WhatsApp Us")} onChange={(e) => handleDataChange("appointmentCta", "secondaryButtonText", e.target.value)} className="w-full h-9 rounded-xl border border-slate-200 px-3 text-xs font-bold text-slate-800 outline-none" />
+                </div>
+                <div>
+                  <label className="block text-[11px] font-bold uppercase text-slate-600 mb-1">Secondary Button Link</label>
+                  <input type="text" value={safeVal(appointmentCta.secondaryButtonLink, "https://wa.me/918309479901")} onChange={(e) => handleDataChange("appointmentCta", "secondaryButtonLink", e.target.value)} className="w-full h-9 rounded-xl border border-slate-200 px-3 text-xs font-medium text-slate-500 outline-none" />
                 </div>
               </div>
               <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
