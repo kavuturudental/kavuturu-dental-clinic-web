@@ -1,6 +1,7 @@
 // src/components/home/before-after/BeforeAfterSection.jsx
 
 import React, { useEffect, useState } from "react";
+import useInViewOnce from "../../../../hooks/useInViewOnce";
 import { Link } from "react-router-dom";
 import { ArrowRight, Sparkles } from "lucide-react";
 import BeforeAfterCard from "./BeforeAfterCard";
@@ -10,7 +11,12 @@ import { getBeforeAfterCases } from "../../../../services/website/beforeAfterSer
 const BeforeAfterSection = () => {
   const [casesList, setCasesList] = useState([]);
 
+  // Defer the (large) API request until the section is near the viewport
+  const [sectionRef, inView] = useInViewOnce("400px 0px");
+
   useEffect(() => {
+    if (!inView) return;
+
     const fetchHomepageCases = async () => {
       try {
         // Query homepage=true -> returns max 3 cases where showOnHomepage = true, sorted by homepageOrder
@@ -27,12 +33,12 @@ const BeforeAfterSection = () => {
     };
 
     fetchHomepageCases();
-  }, []);
+  }, [inView]);
 
   const displayCases = (casesList.length > 0 ? casesList : staticBeforeAfterData).slice(0, 3);
 
   return (
-    <section id="before-after" className="relative overflow-hidden bg-[#FCFCFD] py-12 sm:py-16 lg:py-20">
+    <section ref={sectionRef} id="before-after" className="relative overflow-hidden bg-[#FCFCFD] py-12 sm:py-16 lg:py-20">
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         
         {/* Section Header matching Clinic Showcase design */}

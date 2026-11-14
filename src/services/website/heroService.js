@@ -10,7 +10,20 @@ const API_BASE_URL = `${BASE_URL.replace(/\/$/, "")}/website/hero`;
 /**
  * Get Hero Content from Backend API (Fallback to Local/Mock if Offline)
  */
-export const getHeroContent = async () => {
+// Several components request this at the same time on page load;
+// share a single in-flight request between them.
+let inFlightgetHeroContent = null;
+
+export const getHeroContent = () => {
+  if (!inFlightgetHeroContent) {
+    inFlightgetHeroContent = fetchgetHeroContent().finally(() => {
+      inFlightgetHeroContent = null;
+    });
+  }
+  return inFlightgetHeroContent;
+};
+
+const fetchgetHeroContent = async () => {
   try {
     const response = await axios.get(API_BASE_URL);
     if (response.data && response.data.success) {

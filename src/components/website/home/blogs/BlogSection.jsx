@@ -1,6 +1,7 @@
 // src/components/blogs/BlogSection.jsx
 
 import React, { useEffect, useState } from "react";
+import useInViewOnce from "../../../../hooks/useInViewOnce";
 import { Link } from "react-router-dom";
 import { ArrowRight, BookOpen } from "lucide-react";
 import BlogCard from "./BlogCard";
@@ -11,7 +12,12 @@ const BlogSection = () => {
   const [blogsList, setBlogsList] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Defer the (large) API request until the section is near the viewport
+  const [sectionRef, inView] = useInViewOnce("400px 0px");
+
   useEffect(() => {
+    if (!inView) return;
+
     const fetchHomepageBlogs = async () => {
       try {
         const response = await getBlogs({ homepage: "true" });
@@ -29,7 +35,7 @@ const BlogSection = () => {
     };
 
     fetchHomepageBlogs();
-  }, []);
+  }, [inView]);
 
   const displayBlogs = blogsList.length > 0 ? blogsList : staticBlogData.slice(0, 3);
 
@@ -50,7 +56,7 @@ const BlogSection = () => {
   };
 
   return (
-    <section id="blogs" className="relative overflow-hidden bg-[#FCFCFD] py-12 sm:py-16 lg:py-20">
+    <section ref={sectionRef} id="blogs" className="relative overflow-hidden bg-[#FCFCFD] py-12 sm:py-16 lg:py-20">
       {/* Background Blur */}
       <div className="absolute -top-24 -left-24 h-72 w-72 rounded-full bg-blue-100/30 blur-3xl" />
       <div className="absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-emerald-100/30 blur-3xl" />

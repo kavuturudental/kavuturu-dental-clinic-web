@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import useInViewOnce from "../../../hooks/useInViewOnce";
 import { Link } from "react-router-dom";
 import { ArrowRight, Stethoscope } from "lucide-react";
 import staticTreatments from "../../../data/website/treatments";
@@ -8,7 +9,12 @@ import { getTreatments } from "../../../services/website/treatmentService";
 const TreatmentsSection = () => {
   const [treatmentList, setTreatmentList] = useState([]);
 
+  // Defer the (large) API request until the section is near the viewport
+  const [sectionRef, inView] = useInViewOnce("400px 0px");
+
   useEffect(() => {
+    if (!inView) return;
+
     const fetchTreatmentsData = async () => {
       try {
         // Fetch only treatments configured for Homepage (showOnHomepage = true) sorted by homepageOrder
@@ -25,12 +31,13 @@ const TreatmentsSection = () => {
     };
 
     fetchTreatmentsData();
-  }, []);
+  }, [inView]);
 
   const featuredTreatments = (treatmentList.length > 0 ? treatmentList : staticTreatments).slice(0, 6);
 
   return (
     <section
+      ref={sectionRef}
       id="treatments"
       className="relative overflow-hidden bg-[#FCFCFD] py-12 sm:py-16 lg:py-20"
     >

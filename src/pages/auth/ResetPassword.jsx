@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Lock, Eye, EyeOff, CheckCircle, AlertCircle, Loader2, ArrowLeft, KeyRound } from "lucide-react";
-import logo from "../../assets/images/logos/logo.png";
+import logo from "../../assets/images/logos/logo.webp";
 import authService from "../../services/authService";
 
 export default function ResetPassword() {

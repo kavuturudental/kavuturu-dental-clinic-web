@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import logo from "../../../assets/images/logos/logo.png";
+import logo from "../../../assets/images/logos/logo.webp";
 
 function Logo() {
   const navigate = useNavigate();
@@ -28,6 +28,8 @@ function Logo() {
       <img
         src={logo}
         alt="Kavuturu Dental Clinic"
+        width="183"
+        height="56"
         className="
           h-14
           w-auto

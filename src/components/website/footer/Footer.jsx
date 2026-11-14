@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 
-import clinicLogo from "../../../assets/images/logos/footer-logo.png";
+import clinicLogo from "../../../assets/images/logos/footer-logo.webp";
 import FooterColumn from "./FooterColumn";
 import FooterBottom from "./FooterBottom";
 import { quickLinks, treatments, contactDetails as defaultDetails } from "./footerData";
@@ -63,6 +63,10 @@ const Footer = () => {
               <img
                 src={clinicLogo}
                 alt="Kavuturu Dental Clinic Logo"
+                width="203"
+                height="56"
+                loading="lazy"
+                decoding="async"
                 className="h-14 w-auto"
               />
             </Link>
