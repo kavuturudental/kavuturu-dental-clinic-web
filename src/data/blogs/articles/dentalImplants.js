@@ -1,7 +1,7 @@
 // src/data/blogs/articles/dentalImplants.js
 
 import dentalImplants from "../../../assets/images/blogs/dental-implants.webp";
-import doctorImage from "../../../assets/images/doctors/dr-ravindra-babu.webp";
+import doctorImage from "../../../assets/images/doctors/dr-ravindra-babu-700.webp";
 
 const dentalImplantsArticle = {
   id: 2,

@@ -1,7 +1,7 @@
 // src/data/blogs/articles/laserGumTreatment.js
 
 import laserGumTreatment from "../../../assets/images/blogs/Third blog card (Laser Gum Treatment).webp";
-import doctorImage from "../../../assets/images/doctors/dr-ravindra-babu.webp";
+import doctorImage from "../../../assets/images/doctors/dr-ravindra-babu-700.webp";
 
 const laserGumTreatmentArticle = {
   id: 3,

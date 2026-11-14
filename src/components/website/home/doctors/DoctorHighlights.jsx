@@ -1,7 +1,7 @@
 // src/components/home/doctors/DoctorHighlights.jsx
 
 import React from "react";
-import { motion } from "framer-motion";
+import Reveal from "../../../common/Reveal";
 import { getStatIcon } from "../../../../utils/statIconHelper";
 
 const DoctorHighlights = ({ highlights = [] }) => {
@@ -11,21 +11,8 @@ const DoctorHighlights = ({ highlights = [] }) => {
         const IconComponent = getStatIcon(item.subtitle || item.label || "");
 
         return (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{
-              duration: 0.4,
-              delay: index * 0.08,
-            }}
-            whileHover={{
-              y: -4,
-              scale: 1.02,
-            }}
-            className="group flex items-start gap-4 rounded-3xl border border-slate-200/80 bg-slate-50/50 p-5 shadow-xs transition-all duration-300 hover:bg-white hover:border-sky-300 hover:shadow-xl"
-          >
+          <Reveal key={index} y={15} duration={0.4} delay={index * 0.08}>
+          <div className="group flex h-full items-start gap-4 rounded-3xl border border-slate-200/80 bg-slate-50/50 p-5 shadow-xs transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:bg-white hover:border-sky-300 hover:shadow-xl">
             <div className="w-10 h-10 rounded-2xl bg-sky-100/70 text-sky-700 flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:bg-[#0E2A6D] group-hover:text-white">
               <IconComponent className="w-5 h-5" />
             </div>
@@ -39,7 +26,8 @@ const DoctorHighlights = ({ highlights = [] }) => {
                 {item.subtitle || item.label}
               </p>
             </div>
-          </motion.div>
+          </div>
+          </Reveal>
         );
       })}
     </div>

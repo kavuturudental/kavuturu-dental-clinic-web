@@ -3,7 +3,7 @@
 import laserRootCanal from "../../assets/images/blogs/laser-root-canal.webp";
 import dentalImplants from "../../assets/images/blogs/dental-implants.webp";
 import laserGumTreatment from "../../assets/images/blogs/Third blog card (Laser Gum Treatment).webp";
-import doctorImage from "../../assets/images/doctors/dr-ravindra-babu.webp";
+import doctorImage from "../../assets/images/doctors/dr-ravindra-babu-700.webp";
 
 const blogData = [
   {

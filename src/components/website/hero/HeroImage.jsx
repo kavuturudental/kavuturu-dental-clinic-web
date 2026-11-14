@@ -1,14 +1,15 @@
 // src/components/website/hero/HeroImage.jsx
 
 import React, { useEffect, useState } from "react";
-import defaultDesktopWebp from "../../../assets/images/hero/hero-desktop.webp";
-import defaultMobileWebp from "../../../assets/images/hero/hero-mobile.webp";
 import { getHeroContent } from "../../../services/website/heroService";
+
+const DEFAULT_DESKTOP = "/images/hero/hero-desktop-1672.webp";
+const DEFAULT_MOBILE = "/images/hero/hero-mobile-853.webp";
 
 function HeroImage() {
   const [heroImages, setHeroImages] = useState({
-    desktop: defaultDesktopWebp,
-    mobile: defaultMobileWebp,
+    desktop: DEFAULT_DESKTOP,
+    mobile: DEFAULT_MOBILE,
   });
 
   useEffect(() => {
@@ -18,8 +19,8 @@ function HeroImage() {
         if (response.success && response.data) {
           const data = response.data;
           setHeroImages({
-            desktop: data.desktopImage || data.heroDesktopImage || data.heroImage || defaultDesktopWebp,
-            mobile: data.mobileImage || data.heroMobileImage || data.heroImage || defaultMobileWebp,
+            desktop: data.desktopImage || data.heroDesktopImage || data.heroImage || DEFAULT_DESKTOP,
+            mobile: data.mobileImage || data.heroMobileImage || data.heroImage || DEFAULT_MOBILE,
           });
         }
       } catch (err) {
@@ -39,48 +40,46 @@ function HeroImage() {
     };
   }, []);
 
-  return (
-    <>
-      {/* ================= Desktop Hero ================= */}
-      <picture className="hidden lg:block">
-        <img
-          src={heroImages.desktop || defaultDesktopWebp}
-          alt="Advanced Laser & Implant Dentistry in Tirupati"
-          className="
-            block
-            w-full
-            h-auto
-            select-none
-          "
-          draggable={false}
-          onError={(e) => {
-            if (e.target.src !== defaultDesktopWebp) {
-              e.target.src = defaultDesktopWebp;
-            }
-          }}
-        />
-      </picture>
+  // Default (optimised) hero images live in /public so index.html can
+  // preload them before the JS bundle runs. If the CMS supplies a custom
+  // image we use that instead.
+  const desktopSrcSet =
+    heroImages.desktop === DEFAULT_DESKTOP
+      ? "/images/hero/hero-desktop-1280.webp 1280w, /images/hero/hero-desktop-1672.webp 1672w"
+      : heroImages.desktop;
+  const mobileSrcSet =
+    heroImages.mobile === DEFAULT_MOBILE
+      ? "/images/hero/hero-mobile-480.webp 480w, /images/hero/hero-mobile-720.webp 720w, /images/hero/hero-mobile-853.webp 853w"
+      : heroImages.mobile;
 
-      {/* ================= Mobile Hero ================= */}
-      <picture className="block lg:hidden">
-        <img
-          src={heroImages.mobile || defaultMobileWebp}
-          alt="Advanced Laser & Implant Dentistry in Tirupati"
-          className="
-            block
-            w-full
-            h-auto
-            select-none
-          "
-          draggable={false}
-          onError={(e) => {
-            if (e.target.src !== defaultMobileWebp) {
-              e.target.src = defaultMobileWebp;
-            }
-          }}
-        />
-      </picture>
-    </>
+  return (
+    <picture className="block">
+      <source
+        media="(min-width: 1024px)"
+        srcSet={desktopSrcSet}
+        sizes="100vw"
+        width="1672"
+        height="941"
+      />
+      <img
+        src={heroImages.mobile}
+        srcSet={mobileSrcSet}
+        sizes="100vw"
+        width="853"
+        height="938"
+        alt="Advanced Laser & Implant Dentistry in Tirupati"
+        className="block w-full h-auto select-none"
+        fetchPriority="high"
+        decoding="sync"
+        draggable={false}
+        onError={(e) => {
+          if (!e.target.src.includes("/images/hero/")) {
+            e.target.srcset = "";
+            e.target.src = DEFAULT_MOBILE;
+          }
+        }}
+      />
+    </picture>
   );
 }
 

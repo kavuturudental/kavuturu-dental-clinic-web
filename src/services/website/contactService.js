@@ -8,7 +8,20 @@ const API_BASE_URL = `${BASE_URL.replace(/\/$/, "")}/website/contact`;
 /**
  * Get Contact Information (Single record)
  */
-export const getContact = async () => {
+// Several components request this at the same time on page load;
+// share a single in-flight request between them.
+let inFlightgetContact = null;
+
+export const getContact = () => {
+  if (!inFlightgetContact) {
+    inFlightgetContact = fetchgetContact().finally(() => {
+      inFlightgetContact = null;
+    });
+  }
+  return inFlightgetContact;
+};
+
+const fetchgetContact = async () => {
   try {
     const response = await axios.get(API_BASE_URL);
     if (response.data && response.data.success) {

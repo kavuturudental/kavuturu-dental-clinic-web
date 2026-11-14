@@ -1,6 +1,7 @@
 // src/components/home/gallery/GallerySection.jsx
 
 import React, { useEffect, useState } from "react";
+import useInViewOnce from "../../../../hooks/useInViewOnce";
 import { Link } from "react-router-dom";
 import { ArrowRight, Image as ImageIcon } from "lucide-react";
 import staticGalleryData from "../../../../data/website/galleryData";
@@ -30,7 +31,12 @@ const GallerySection = () => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [galleryImages, setGalleryImages] = useState([]);
 
+  // Defer the (large) API request until the section is near the viewport
+  const [sectionRef, inView] = useInViewOnce("400px 0px");
+
   useEffect(() => {
+    if (!inView) return;
+
     const fetchHomepageGallery = async () => {
       try {
         const response = await getGalleryImages({ homepage: "true" });
@@ -46,7 +52,7 @@ const GallerySection = () => {
     };
 
     fetchHomepageGallery();
-  }, []);
+  }, [inView]);
 
   const displayList = (galleryImages.length > 0 ? galleryImages : staticGalleryData).slice(0, 8);
   // Duplicate gallery images for seamless continuous loop
@@ -59,6 +65,7 @@ const GallerySection = () => {
 
   return (
     <section
+      ref={sectionRef}
       id="gallery"
       className="relative overflow-hidden bg-[#FCFCFD] py-12 sm:py-16 lg:py-20"
     >

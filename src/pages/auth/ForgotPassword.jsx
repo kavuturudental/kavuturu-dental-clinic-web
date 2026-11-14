@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Mail, CheckCircle, AlertCircle, Loader2, ArrowLeft } from "lucide-react";
-import logo from "../../assets/images/logos/logo.png";
+import logo from "../../assets/images/logos/logo.webp";
 import authService from "../../services/authService";
 
 export default function ForgotPassword() {

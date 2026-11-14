@@ -1,7 +1,7 @@
 // src/data/blogs/articles/laserRootCanal.js
 
 import laserRootCanal from "../../../assets/images/blogs/laser-root-canal.webp";
-import doctorImage from "../../../assets/images/doctors/dr-ravindra-babu.webp";
+import doctorImage from "../../../assets/images/doctors/dr-ravindra-babu-700.webp";
 
 const laserRootCanalArticle = {
   id: 1,

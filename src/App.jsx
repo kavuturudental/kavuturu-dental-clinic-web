@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 
 import Navbar from "./components/website/navbar/Navbar";
@@ -11,29 +11,29 @@ import { DialogProvider } from "./context/DialogContext";
 
 // Public Pages
 import Home from "./pages/website/Home";
-import About from "./pages/website/About";
-import Treatments from "./pages/website/Treatments";
-import TreatmentDetails from "./pages/website/TreatmentDetails";
-import Doctors from "./pages/website/Doctors";
-import Gallery from "./pages/website/Gallery";
-import Testimonials from "./pages/website/Testimonials";
-import Blogs from "./pages/website/Blogs";
-import BlogDetails from "./pages/website/BlogDetails";
-import BeforeAfter from "./pages/website/BeforeAfter";
-import Contact from "./pages/website/Contact";
-import PrivacyPolicy from "./pages/website/PrivacyPolicy";
-import TermsAndConditions from "./pages/website/TermsAndConditions";
+const About = lazy(() => import("./pages/website/About"));
+const Treatments = lazy(() => import("./pages/website/Treatments"));
+const TreatmentDetails = lazy(() => import("./pages/website/TreatmentDetails"));
+const Doctors = lazy(() => import("./pages/website/Doctors"));
+const Gallery = lazy(() => import("./pages/website/Gallery"));
+const Testimonials = lazy(() => import("./pages/website/Testimonials"));
+const Blogs = lazy(() => import("./pages/website/Blogs"));
+const BlogDetails = lazy(() => import("./pages/website/BlogDetails"));
+const BeforeAfter = lazy(() => import("./pages/website/BeforeAfter"));
+const Contact = lazy(() => import("./pages/website/Contact"));
+const PrivacyPolicy = lazy(() => import("./pages/website/PrivacyPolicy"));
+const TermsAndConditions = lazy(() => import("./pages/website/TermsAndConditions"));
 
 // Auth Pages
-import Login from "./pages/auth/Login";
-import ForgotPassword from "./pages/auth/ForgotPassword";
-import ResetPassword from "./pages/auth/ResetPassword";
+const Login = lazy(() => import("./pages/auth/Login"));
+const ForgotPassword = lazy(() => import("./pages/auth/ForgotPassword"));
+const ResetPassword = lazy(() => import("./pages/auth/ResetPassword"));
 
 // Doctor CMS
-import DoctorRoutes from "./routes/doctorRoutes";
+const DoctorRoutes = lazy(() => import("./routes/doctorRoutes"));
 
 // Common
-import NotFound from "./pages/website/NotFound";
+const NotFound = lazy(() => import("./pages/website/NotFound"));
 
 function AppContent() {
   const location = useLocation();
@@ -58,6 +58,7 @@ function AppContent() {
       {!hideLayout && <Navbar />}
 
       {/* Website Routes */}
+      <Suspense fallback={<div className="min-h-screen" />}>
       <Routes>
         {/* =========================
             Public Website
@@ -115,6 +116,7 @@ function AppContent() {
           element={<NotFound />}
         />
       </Routes>
+      </Suspense>
 
       {/* Floating Social Icons */}
       {!hideLayout && <FloatingSocialBar />}

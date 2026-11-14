@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Mail, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
-import logo from "../../assets/images/logos/logo.png";
+import logo from "../../assets/images/logos/logo.webp";
 import PasswordInput from "./PasswordInput";
 import authService from "../../services/authService";
 

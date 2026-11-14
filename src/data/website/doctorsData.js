@@ -1,6 +1,6 @@
 // src/data/doctorsData.js
 
-import doctorImage from "../../assets/images/doctors/dr-ravindra-babu.webp";
+import doctorImage from "../../assets/images/doctors/dr-ravindra-babu-700.webp";
 
 /* -------------------------------------------------------------------------- */
 /*                               Featured Doctor                              */

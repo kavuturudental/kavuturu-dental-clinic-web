@@ -2,26 +2,6 @@
 <html lang="en">
   <head>
     <!-- =========================
-         GOOGLE ANALYTICS (GA4)
-    ========================== -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-DEEZ1ZZ7FK"
-    ></script>
-
-    <script>
-      window.dataLayer = window.dataLayer || [];
-
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-
-      gtag("js", new Date());
-
-      gtag("config", "G-DEEZ1ZZ7FK");
-    </script>
-
-    <!-- =========================
          CHARACTER ENCODING
     ========================== -->
     <meta charset="UTF-8" />
@@ -33,6 +13,68 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
+
+    <!-- =========================
+         PERFORMANCE: HERO PRELOAD (homepage only)
+         Lets the browser fetch the LCP image in parallel with the JS bundle.
+    ========================== -->
+    <script>
+      if (location.pathname === "/") {
+        [
+          ["(max-width: 1023.98px)", "/images/hero/hero-mobile-480.webp 480w, /images/hero/hero-mobile-720.webp 720w, /images/hero/hero-mobile-853.webp 853w"],
+          ["(min-width: 1024px)", "/images/hero/hero-desktop-1280.webp 1280w, /images/hero/hero-desktop-1672.webp 1672w"]
+        ].forEach(function (p) {
+          var l = document.createElement("link");
+          l.rel = "preload";
+          l.as = "image";
+          l.media = p[0];
+          l.setAttribute("imagesrcset", p[1]);
+          l.setAttribute("imagesizes", "100vw");
+          l.setAttribute("fetchpriority", "high");
+          document.head.appendChild(l);
+        });
+      }
+    </script>
+
+    <!-- Backend API (content is fetched on page load) -->
+    <link rel="preconnect" href="https://kavuturu-backend.vercel.app" crossorigin />
+
+    <!-- =========================
+         GOOGLE ANALYTICS (GA4)
+         gtag.js is loaded on the first user interaction (or after 8s) so it
+         doesn't block the main thread while the page is loading. Events
+         pushed before then are queued in dataLayer and sent once it loads.
+    ========================== -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-DEEZ1ZZ7FK");
+
+      (function () {
+        var loaded = false;
+        var events = ["pointerdown", "keydown", "touchstart", "mousemove", "wheel"];
+        function loadGA() {
+          if (loaded) return;
+          loaded = true;
+          events.forEach(function (e) {
+            removeEventListener(e, loadGA);
+          });
+          var s = document.createElement("script");
+          s.async = true;
+          s.src = "https://www.googletagmanager.com/gtag/js?id=G-DEEZ1ZZ7FK";
+          document.head.appendChild(s);
+        }
+        events.forEach(function (e) {
+          addEventListener(e, loadGA, { once: true, passive: true });
+        });
+        addEventListener("load", function () {
+          setTimeout(loadGA, 8000);
+        });
+      })();
+    </script>
 
     <!-- =========================
          DEFAULT SEO
@@ -127,10 +169,19 @@
       crossorigin
     />
 
+    <!-- Loaded without blocking first paint (font-display: swap) -->
     <link
+      rel="preload"
+      as="style"
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
-      rel="stylesheet"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+      />
+    </noscript>
   </head>
 
   <body>

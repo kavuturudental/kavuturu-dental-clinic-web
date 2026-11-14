@@ -22,10 +22,15 @@ const slugify = (text) =>
 function TreatmentsDropdown({ activeSection }) {
   const [isOpen, setIsOpen] = useState(false);
   const [treatmentList, setTreatmentList] = useState(staticTreatments);
+  // The treatments API response is large (it includes images), so only
+  // fetch it once the visitor actually opens the dropdown.
+  const [shouldLoad, setShouldLoad] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
+    if (!shouldLoad) return;
+
     const fetchDropdownTreatments = async () => {
       try {
         const response = await getTreatments({ status: "Active" });
@@ -52,7 +57,7 @@ function TreatmentsDropdown({ activeSection }) {
       window.removeEventListener("TREATMENT_UPDATED", handleUpdate);
       window.removeEventListener("TREATMENTS_UPDATED", handleUpdate);
     };
-  }, []);
+  }, [shouldLoad]);
 
   const isTreatmentsActive =
     location.pathname === "/"
@@ -69,7 +74,11 @@ function TreatmentsDropdown({ activeSection }) {
   return (
     <li
       className="relative"
-      onMouseEnter={() => setIsOpen(true)}
+      onMouseEnter={() => {
+        setShouldLoad(true);
+        setIsOpen(true);
+      }}
+      onFocus={() => setShouldLoad(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
       <Link
