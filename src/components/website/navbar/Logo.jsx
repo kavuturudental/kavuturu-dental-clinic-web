@@ -29,6 +29,7 @@ function Logo() {
         src={logo}
         alt="Kavuturu Dental Clinic"
         width="183"
+        fetchPriority="low"
         height="56"
         className="
           h-14

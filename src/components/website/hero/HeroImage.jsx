@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { getHeroContent } from "../../../services/website/heroService";
 
 const DEFAULT_DESKTOP = "/images/hero/hero-desktop-1672.webp";
-const DEFAULT_MOBILE = "/images/hero/hero-mobile-853.webp";
+const DEFAULT_MOBILE = "/images/hero/hero-mobile-768.webp";
 
 function HeroImage() {
   const [heroImages, setHeroImages] = useState({
@@ -49,7 +49,7 @@ function HeroImage() {
       : heroImages.desktop;
   const mobileSrcSet =
     heroImages.mobile === DEFAULT_MOBILE
-      ? "/images/hero/hero-mobile-480.webp 480w, /images/hero/hero-mobile-720.webp 720w, /images/hero/hero-mobile-853.webp 853w"
+      ? "/images/hero/hero-mobile-480.webp 480w, /images/hero/hero-mobile-768.webp 768w, /images/hero/hero-mobile-853.webp 853w"
       : heroImages.mobile;
 
   return (
@@ -62,8 +62,8 @@ function HeroImage() {
         height="941"
       />
       <img
-        src={heroImages.mobile}
         srcSet={mobileSrcSet}
+        src={heroImages.mobile}
         sizes="100vw"
         width="853"
         height="938"

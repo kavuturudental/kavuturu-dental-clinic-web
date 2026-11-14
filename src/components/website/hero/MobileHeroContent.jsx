@@ -4,9 +4,10 @@ import { ShieldCheck } from "lucide-react";
 import { heroData } from "../../../data/website/heroData";
 import HeroButtons from "./HeroButtons";
 import { getHeroContent } from "../../../services/website/heroService";
+import { getInitialData } from "../../../utils/initialData";
 
 function MobileHeroContent() {
-  const [hero, setHero] = useState(null);
+  const [hero, setHero] = useState(() => getInitialData("hero") || null);
 
   useEffect(() => {
     const fetchHero = async () => {

@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 
 import { statsData } from "../../../data/website/statsData";
 import { getHeroContent } from "../../../services/website/heroService";
+import { getInitialData } from "../../../utils/initialData";
 
 function HeroStats() {
-  const [stats, setStats] = useState([]);
+  const [stats, setStats] = useState(() => getInitialData("hero")?.stats || []);
 
   useEffect(() => {
     const fetchHeroStats = async () => {

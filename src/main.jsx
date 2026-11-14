@@ -1,5 +1,5 @@
 import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
+import { createRoot, hydrateRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { Toaster } from "react-hot-toast";
@@ -7,7 +7,7 @@ import { Toaster } from "react-hot-toast";
 import "./index.css";
 import App from "./App.jsx";
 
-createRoot(document.getElementById("root")).render(
+const app = (
   <StrictMode>
     <HelmetProvider>
       <BrowserRouter>
@@ -23,3 +23,14 @@ createRoot(document.getElementById("root")).render(
     </HelmetProvider>
   </StrictMode>
 );
+
+const container = document.getElementById("root");
+
+// The homepage is prerendered at build time (scripts/prerender.mjs).
+// Hydrating reuses that HTML instead of re-creating it, so the hero image
+// and text that are already on screen aren't replaced.
+if (container.hasChildNodes()) {
+  hydrateRoot(container, app);
+} else {
+  createRoot(container).render(app);
+}
