@@ -4,6 +4,7 @@ import { ArrowRight, MessageSquare } from "lucide-react";
 import TestimonialCard from "./TestimonialCard";
 import { getTestimonials } from "../../../services/website/testimonialService";
 import { sortTestimonialsByReviewDate } from "../../../utils/reviewDateHelper";
+import { getInitialData } from "../../../utils/initialData";
 
 const marqueeStyle = `
   @keyframes marquee-scroll {
@@ -34,8 +35,11 @@ const marqueeStyle = `
 `;
 
 const TestimonialsSection = () => {
-  const [reviewsList, setReviewsList] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [reviewsList, setReviewsList] = useState(() => {
+    const initial = getInitialData("testimonials");
+    return Array.isArray(initial) ? sortTestimonialsByReviewDate(initial) : [];
+  });
+  const [loading, setLoading] = useState(() => !Array.isArray(getInitialData("testimonials")));
 
   useEffect(() => {
     const fetchHomepageTestimonials = async () => {

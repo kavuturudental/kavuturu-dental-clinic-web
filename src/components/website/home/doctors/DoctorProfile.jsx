@@ -3,32 +3,28 @@ import Reveal from "../../../common/Reveal";
 import { featuredDoctor as fallbackDoctor } from "../../../../data/website/doctorsData";
 import DoctorHighlights from "./DoctorHighlights";
 import { getFeaturedDoctor } from "../../../../services/website/doctorCmsService";
+import { getInitialData } from "../../../../utils/initialData";
 import featuredDoctorImg from "../../../../assets/images/doctors/dr-ravindra-babu-700.webp";
 
+const toDoctorView = (d) => ({
+  name: d?.name || fallbackDoctor.name,
+  qualification: d?.qualification || fallbackDoctor.qualification,
+  specialization: d?.specialization || fallbackDoctor.specialization,
+  description: d?.profileSummary || d?.description || fallbackDoctor.description,
+  highlights: Array.isArray(d?.stats) && d.stats.length > 0
+    ? d.stats.map(s => ({ title: s.value, subtitle: s.label }))
+    : fallbackDoctor.highlights,
+});
+
 const DoctorProfile = () => {
-  const [doctor, setDoctor] = useState({
-    name: fallbackDoctor.name,
-    qualification: fallbackDoctor.qualification,
-    specialization: fallbackDoctor.specialization,
-    description: fallbackDoctor.description,
-    highlights: fallbackDoctor.highlights,
-  });
+  const [doctor, setDoctor] = useState(() => toDoctorView(getInitialData("featuredDoctor")));
 
   useEffect(() => {
     const fetchFeaturedDoctorData = async () => {
       try {
         const response = await getFeaturedDoctor();
         if (response.success && response.data) {
-          const d = response.data;
-          setDoctor({
-            name: d.name || fallbackDoctor.name,
-            qualification: d.qualification || fallbackDoctor.qualification,
-            specialization: d.specialization || fallbackDoctor.specialization,
-            description: d.profileSummary || d.description || fallbackDoctor.description,
-            highlights: Array.isArray(d.stats) && d.stats.length > 0
-              ? d.stats.map(s => ({ title: s.value, subtitle: s.label }))
-              : fallbackDoctor.highlights,
-          });
+          setDoctor(toDoctorView(response.data));
         }
       } catch (err) {
         console.error("Failed to load featured doctor data:", err);

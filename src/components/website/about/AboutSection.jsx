@@ -6,11 +6,15 @@ import AboutBadge from "./AboutBadge";
 import AboutContent from "./AboutContent";
 import AboutImage from "./AboutImage";
 import { getAboutContent } from "../../../services/website/aboutService";
+import { getInitialData } from "../../../utils/initialData";
 
 const AboutSection = () => {
-  const [content, setContent] = useState({
-    heading: aboutData.heading,
-    description: aboutData.description
+  const [content, setContent] = useState(() => {
+    const initial = getInitialData("about");
+    return {
+      heading: initial?.heading || aboutData.heading,
+      description: initial?.description || aboutData.description
+    };
   });
 
   useEffect(() => {

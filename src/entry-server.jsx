@@ -5,6 +5,7 @@ import { StrictMode } from "react";
 import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router";
 import { HelmetProvider } from "react-helmet-async";
+import { Toaster } from "react-hot-toast";
 
 import App from "./App.jsx";
 
@@ -16,6 +17,14 @@ export function render(url) {
       <HelmetProvider context={helmetContext}>
         <StaticRouter location={url}>
           <App />
+          {/* Must mirror src/main.jsx exactly so hydration matches */}
+          <Toaster
+            position="top-right"
+            reverseOrder={false}
+            toastOptions={{
+              duration: 4000,
+            }}
+          />
         </StaticRouter>
       </HelmetProvider>
     </StrictMode>
